@@ -1,0 +1,57 @@
+---
+import CardLink from "@/components/CardLink.astro";
+import Kicker from "@/components/Kicker.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { projects } from "@/data/site";
+---
+
+<BaseLayout>
+  <header class="wrap page-header-wide">
+    <h1 class="hero-title">Systems engineer working on production infrastructure and reliability.</h1>
+    <p class="hero-copy">
+      I work on Azure-scale systems across Linux, C++, Rust, telemetry, and operational debugging.
+      This site is being reset around a smaller public surface: a few works in progress, then
+      writing and build notes when they are ready to stand on their own.
+    </p>
+  </header>
+
+  <section class="wrap" aria-labelledby="featured-heading">
+    <Kicker label="Upcoming / work in progress" />
+    <h2 class="sr-only" id="featured-heading">Upcoming work in progress</h2>
+    <div class="cards">
+      {
+        projects.map((project, index) => (
+          <CardLink
+            index={`0${index + 1}`}
+            title={project.title}
+            href={project.href}
+            description={project.summary}
+            status={project.status}
+            tags={project.tags}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top: 64px;">
+    <div class="split">
+      <div>
+        <Kicker label="Writing" />
+        <div class="mini mini-static">
+          <span class="mini-date">pending</span>
+          <span class="mini-title">Essays will appear here once they are edited for public release.</span>
+          <span class="mini-tags mono">no published writing yet</span>
+        </div>
+      </div>
+      <div>
+        <Kicker label="Build log" />
+        <div class="mini mini-static">
+          <span class="mini-date">pending</span>
+          <span class="mini-title">Build notes will come back when the home lab notes are ready.</span>
+          <span class="mini-tags mono">no published logs yet</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

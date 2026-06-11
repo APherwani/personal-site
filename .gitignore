@@ -1,0 +1,15 @@
+.DS_Store
+.claude/
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/
+coverage/
+
+# Local design handoff artifacts. Keep the durable decisions in strategy/DESIGN_SYSTEM.md.
+Personal Site-handoff.zip
+personal-site/

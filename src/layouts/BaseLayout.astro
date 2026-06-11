@@ -1,0 +1,120 @@
+---
+import { navItems, site } from "@/data/site";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  tags?: string[];
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  image = "/social-card.svg",
+  type = "website",
+  publishedTime,
+  tags = [],
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const imageUrl = new URL(image, site.url).href;
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+
+const jsonLd =
+  type === "article"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: title,
+        description,
+        author: { "@type": "Person", name: site.author, url: site.url },
+        datePublished: publishedTime,
+        keywords: tags.join(", "),
+        mainEntityOfPage: canonical,
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: site.name,
+        url: site.url,
+        description: site.description,
+        author: { "@type": "Person", name: site.author },
+      };
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#f7f6f2" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.author} RSS`} href="/rss.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <nav class="nav" aria-label="Primary">
+      <div class="wrap nav-inner">
+        <a class="brand" href="/">
+          <span class="dot" aria-hidden="true"></span>
+          <span>{site.author}</span>
+        </a>
+        <div class="nav-links">
+          {
+            navItems.map((item) => (
+              <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </nav>
+
+    <main id="content">
+      <slot />
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <div class="colophon">
+          <strong>{site.author}</strong><br />
+          Built as a static site. No trackers, no stock photos.<br />
+          Set in Space Grotesk, Newsreader, and IBM Plex Mono.<br />
+          &copy; 2026; last updated {site.lastUpdated}
+        </div>
+        <div class="foot-links">
+          <a href={site.github} target="_blank" rel="noopener me">GitHub</a>
+          <a href={site.linkedin} target="_blank" rel="noopener me">LinkedIn</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href="/rss.xml">RSS</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

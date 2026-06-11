@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Arjun Pherwani">
+  <rect width="1200" height="630" fill="#f7f6f2"/>
+  <rect x="112" y="110" width="10" height="92" fill="#9a4f25"/>
+  <text x="150" y="180" fill="#1a1916" font-family="Space Grotesk, Arial, sans-serif" font-size="44" font-weight="700">Arjun Pherwani</text>
+  <text x="112" y="300" fill="#1a1916" font-family="Space Grotesk, Arial, sans-serif" font-size="74" font-weight="700">Systems and platform engineering</text>
+  <text x="112" y="386" fill="#57534c" font-family="Georgia, serif" font-size="32">Production infrastructure, reliability, and physical-world computing.</text>
+  <text x="112" y="510" fill="#626d2e" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="3">UPCOMING WORK / OLIVE / HOME LAB</text>
+</svg>

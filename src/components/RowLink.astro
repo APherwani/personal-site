@@ -1,0 +1,30 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+import type { Status } from "@/data/site";
+
+interface Props {
+  href?: string;
+  date: string;
+  title: string;
+  summary: string;
+  meta?: string;
+  status?: Status;
+  planned?: boolean;
+}
+
+const { href, date, title, summary, meta, status, planned = false } = Astro.props;
+const Tag = href ? "a" : "div";
+---
+
+<Tag class:list={["row", { "row-static": !href, "row-planned": planned }]} href={href}>
+  <span class="row-date">{date}</span>
+  <span class="row-title">
+    {title}
+    <span class="row-sub">{summary}</span>
+  </span>
+  <span class="row-meta">
+    {status && <StatusBadge status={status} />}
+    {meta && <span class="mono">{meta}</span>}
+    {planned && <span class="status is-planned"><span class="led" aria-hidden="true"></span>Planned</span>}
+  </span>
+</Tag>

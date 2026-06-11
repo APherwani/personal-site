@@ -1,0 +1,30 @@
+---
+import type { Status } from "@/data/site";
+import StatusBadge from "./StatusBadge.astro";
+import Tags from "./Tags.astro";
+
+interface Props {
+  index: string;
+  title: string;
+  href?: string;
+  description: string;
+  status: Status;
+  tags: string[];
+}
+
+const { index, title, href, description, status, tags } = Astro.props;
+const Tag = href ? "a" : "div";
+---
+
+<Tag class:list={["card", { "card-static": !href }]} href={href}>
+  <div class="card-top">
+    <span class="card-idx">{index}</span>
+    <StatusBadge status={status} />
+  </div>
+  <h3 class="card-title">{title}</h3>
+  <p class="card-desc">{description}</p>
+  <div class="card-foot">
+    <Tags tags={tags} />
+    {href && <span class="card-arrow" aria-hidden="true">-&gt;</span>}
+  </div>
+</Tag>

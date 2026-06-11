@@ -1,0 +1,14 @@
+---
+import type { Status } from "@/data/site";
+
+interface Props {
+  status: Status;
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={["status", `is-${status.tone}`]}>
+  <span class="led" aria-hidden="true"></span>
+  {status.label}
+</span>

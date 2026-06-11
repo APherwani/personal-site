@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="kicker">
+  <span class="label">{label}</span>
+  <span class="rule" aria-hidden="true"></span>
+</div>

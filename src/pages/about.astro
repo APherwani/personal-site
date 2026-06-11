@@ -1,0 +1,70 @@
+---
+import Kicker from "@/components/Kicker.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+---
+
+<BaseLayout title="About - Arjun Pherwani" description="Arjun Pherwani - systems and platform engineer. Current focus, interests, and links.">
+  <section class="wrap" style="padding-top: 76px; max-width: 900px;">
+    <div class="about-grid">
+      <div>
+        <h1 class="page-title">About</h1>
+        <div class="prose" style="margin-top: 26px;">
+          <p>
+            I am a systems and platform engineer. Most of my work lives below the parts of AI that
+            get talked about: Linux, C++, Rust, telemetry, operational debugging, and the
+            unglamorous job of keeping large host fleets boring while everything above them changes
+            weekly.
+          </p>
+          <p>
+            I think the layer I work on is underrated as a vantage point. You learn how systems
+            actually fail, how capacity really gets built, and how much of AI progress is downstream
+            of supply chains and reliability budgets. That view leaks into how I read industries,
+            which is most of what I write about.
+          </p>
+          <p>
+            Away from the editor I keep a home lab, mostly so I have somewhere to be wrong cheaply
+            and in writing. The build log is where that lives.
+          </p>
+        </div>
+
+        <div style="margin-top: 44px;">
+          <Kicker label="Current focus" />
+          <ul class="ticks prose">
+            <li><strong>Day work</strong> - production reliability and operational debugging for AI infrastructure.</li>
+            <li><strong>Olive</strong> - upcoming work in progress, not yet published as a project page.</li>
+            <li><strong>Home lab</strong> - upcoming work in progress around sensors, automation, and reliability.</li>
+            <li><strong>Writing</strong> - paused publicly until essays are edited enough to publish.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 36px;">
+          <Kicker label="Interests" />
+          <p class="prose muted">
+            Capital cycles in semis / deterministic systems / property testing / embodied and
+            physical AI / industrial policy / the economics of reliability / small sharp tools.
+          </p>
+        </div>
+      </div>
+
+      <aside class="contact" aria-labelledby="contact-heading">
+        <div class="label" id="contact-heading" style="margin-bottom:16px;">Contact and links</div>
+        <a class="clink" href={site.github} target="_blank" rel="noopener me">
+          <span class="clink-k">GitHub</span><span class="clink-v">@APherwani</span>
+        </a>
+        <a class="clink" href={site.linkedin} target="_blank" rel="noopener me">
+          <span class="clink-k">LinkedIn</span><span class="clink-v">arjun-pherwani</span>
+        </a>
+        <a class="clink" href={`mailto:${site.email}`}>
+          <span class="clink-k">Email</span><span class="clink-v">{site.email}</span>
+        </a>
+        <a class="clink" href="/rss.xml">
+          <span class="clink-k">RSS</span><span class="clink-v">writing and log</span>
+        </a>
+        <p class="mono" style="margin-top:18px; color:var(--faint); text-transform:none; letter-spacing:0; line-height:1.6;">
+          Resume link intentionally withheld until a real PDF is ready to ship.
+        </p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
