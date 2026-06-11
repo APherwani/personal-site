@@ -70,11 +70,21 @@ export const navItems: LinkItem[] = [
 export const projects: Project[] = [
   {
     title: "Olive",
-    date: "upcoming",
-    status: { label: "Work in progress", tone: "building" },
-    tags: ["equity", "tax-modeling", "local-first"],
+    href: "/projects/olive/",
+    date: "active",
+    status: { label: "Dogfood", tone: "active" },
+    tags: ["equity", "tax-modeling", "decision-support"],
     summary:
-      "A personal finance tool for making vested equity decisions more explicit. Still being shaped before public details ship.",
+      "A private portfolio cockpit for employer-stock concentration, future vests, tax-lot tradeoffs, and bounded AI synthesis.",
+  },
+  {
+    title: "SelfControl launchd automation",
+    href: "/projects/selfcontrol-launchd/",
+    date: "2026.06",
+    status: { label: "Writeup", tone: "research" },
+    tags: ["macos", "launchd", "security-boundaries"],
+    summary:
+      "A small public shell automation that installed a weekday SelfControl schedule, then ran into macOS's intentional authorization boundary.",
   },
   {
     title: "Home lab",
@@ -99,7 +109,17 @@ export const routeExpectations: RouteExpectation[] = [
   {
     path: "/projects/",
     titleIncludes: "Projects",
-    descriptionIncludes: "Upcoming work",
+    descriptionIncludes: "Project notes",
+  },
+  {
+    path: "/projects/olive/",
+    titleIncludes: "Olive",
+    descriptionIncludes: "equity concentration",
+  },
+  {
+    path: "/projects/selfcontrol-launchd/",
+    titleIncludes: "SelfControl",
+    descriptionIncludes: "authorization boundary",
   },
   {
     path: "/writing/",

@@ -1,0 +1,142 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const sourceHref = "https://github.com/APherwani/selfcontrol-automation";
+---
+
+<BaseLayout
+  title="SelfControl launchd automation - Arjun Pherwani"
+  description="A short project writeup about automating SelfControl with launchd, then hitting macOS's intentional authorization boundary."
+  type="article"
+  publishedTime={`${site.lastUpdated}T12:00:00.000Z`}
+  tags={["macOS", "launchd", "automation", "security boundaries"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Project / failure writeup</p>
+      <h1 class="article-title">When launchd Was Not Enough</h1>
+      <p class="lead">
+        I tried to automate weekday SelfControl blocks with a small `launchd` scheduler. The schedule
+        worked; the unattended block did not, because the real boundary was macOS authorization.
+      </p>
+      <div class="project-meta">
+        <span>macOS</span>
+        <span>launchd</span>
+        <span>shell</span>
+        <span>public repo</span>
+      </div>
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">Source repo</a>
+      </div>
+    </header>
+
+    <section class="prose-wrap prose log">
+      <h2 class="sub">Goal</h2>
+      <p>
+        I wanted a weekday 9-to-5 website block to start automatically. The point was not to build a
+        large productivity system. It was to make focus the default instead of relying on daily
+        willpower.
+      </p>
+
+      <pre class="snippet"><code>Monday-Friday at 9:00 am -&gt; start SelfControl block -&gt; end at 5:00 pm</code></pre>
+
+      <h2 class="sub">First Attempt</h2>
+      <div class="diagram" aria-label="SelfControl automation path">
+        <div class="dgm-row">
+          <span class="dgm-box">LaunchAgent</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">runner script</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">compute end time</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">SelfControl CLI</span>
+        </div>
+        <p class="dgm-note mono">
+          The installer writes user-owned LaunchAgent and runner files; SelfControl owns the privileged block helper.
+        </p>
+      </div>
+
+      <p>
+        The installer accepted a start time, end time, and cadence, then installed a user LaunchAgent
+        and runner script. A typical experimental install looked like this:
+      </p>
+
+      <pre class="snippet"><code>./install-selfcontrol-automation.sh 09:00 17:00 weekdays</code></pre>
+
+      <h2 class="sub">What Worked</h2>
+      <div class="block ok">
+        <span class="block-tag">Working pieces</span>
+        <p>
+          The schedule fired, the runner could compute the target end time, the block could be
+          started manually, and the repo became a small auditable shell project with install,
+          uninstall, dry-run, logs, and CI shell checks.
+        </p>
+      </div>
+
+      <h2 class="sub">What Failed</h2>
+      <div class="block bad">
+        <span class="block-tag">Boundary</span>
+        <p>
+          SelfControl's CLI goes through macOS Authorization Services. Its privileged helper path
+          expects an interactive user session, including the little approval prompt where an
+          administrator password may be entered.
+        </p>
+        <p>
+          If I was at the computer, I could approve the prompt and start the session. If I was not,
+          the scheduled job could fire and still fail to cross the authorization boundary. That was
+          not a scheduler bug. It was the security model working as designed.
+        </p>
+      </div>
+
+      <h2 class="sub">Fork In The Road</h2>
+      <p>
+        At that point, the choices were to patch SelfControl, fork it, find another blocking
+        mechanism, use a different product, or accept manual activation. I also looked at Hammer
+        Control, whose maintainer had effectively moved on because Raycast Focus existed.
+      </p>
+
+      <h2 class="sub">Practical Decision</h2>
+      <div class="block next">
+        <span class="block-tag">Decision</span>
+        <p>
+          I stopped treating the issue as a scripting problem. The hard part was not cron syntax,
+          `launchd`, or time arithmetic. The hard part was trying to get unattended privileged
+          behavior from a tool whose helper model is intentionally interactive.
+        </p>
+        <p>
+          The public repo now points people toward Raycast Focus if they just want scheduled focus
+          blocks. This project is better read as a reference artifact and a small lesson in respecting
+          platform boundaries.
+        </p>
+      </div>
+
+      <h2 class="sub">What It Proves</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Automation taste</span>
+          <strong>Small tools should be auditable.</strong>
+          The project stayed understandable: install a LaunchAgent, run a script, log what happened,
+          and provide an uninstall path.
+        </li>
+        <li>
+          <span class="leg-tag">Systems judgment</span>
+          <strong>A failed automation can still be a successful investigation.</strong>
+          The useful conclusion was identifying the authorization boundary, not forcing a brittle
+          workaround through it.
+        </li>
+        <li>
+          <span class="leg-tag">Environment design</span>
+          <strong>Focus is easier when the environment carries some of the load.</strong>
+          The original instinct was still right: make the desired behavior the default. The mechanism
+          was the part that needed to change.
+        </li>
+      </ol>
+
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">GitHub repo</a>
+        <a class="inline-link" href="/projects/">All projects</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

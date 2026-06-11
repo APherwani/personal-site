@@ -1,0 +1,169 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const screenshots = [
+  {
+    src: "/projects/olive/dashboard.png",
+    alt: "Olive dashboard showing demo allocation, performance, attribution, positions, and concentration panels.",
+    caption: "Dashboard and concentration view, rendered from Olive's demo-seed portfolio.",
+  },
+  {
+    src: "/projects/olive/transactions.png",
+    alt: "Olive transaction ledger showing demo buys, dividends, notes, linked journals, and bulk edit controls.",
+    caption: "Transaction ledger as the source of truth for lots, cash movement, and derived positions.",
+  },
+  {
+    src: "/projects/olive/private-equity.png",
+    alt: "Olive private-company security page showing valuation marks, forward exposure, vest events, signals, and catalysts.",
+    caption: "Private-company and future-vest surface. Forward exposure is kept out of live NAV.",
+  },
+  {
+    src: "/projects/olive/rebalance.png",
+    alt: "Olive rebalance assistant showing allocation targets, durable constraints, and privacy boundary copy.",
+    caption: "Rebalance assistant shell, including the percentage-only privacy boundary for model-assisted sessions.",
+  },
+];
+---
+
+<BaseLayout
+  title="Olive - Arjun Pherwani"
+  description="Olive is a private equity concentration planning app for reasoning about future vests, tax lots, staged decisions, and bounded AI synthesis."
+  type="article"
+  publishedTime={`${site.lastUpdated}T12:00:00.000Z`}
+  tags={["equity", "tax lots", "portfolio systems", "AI boundaries"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Project / active dogfood</p>
+      <h1 class="article-title">Olive</h1>
+      <p class="lead">
+        A private portfolio cockpit for reasoning about concentrated employer stock, future vests,
+        tax-lot tradeoffs, staged exits, and the difference between a dashboard and a decision system.
+      </p>
+      <div class="project-meta">
+        <span>Cloudflare Workers</span>
+        <span>D1</span>
+        <span>Hono JSX</span>
+        <span>demo-seed screenshots</span>
+      </div>
+    </header>
+
+    <section class="wrap media-grid" aria-label="Olive demo screenshots">
+      {
+        screenshots.map((shot) => (
+          <figure class="figure">
+            <img src={shot.src} alt={shot.alt} loading="lazy" />
+            <figcaption class="caption">{shot.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </section>
+
+    <section class="prose-wrap prose">
+      <p class="advisory mono">
+        Screenshot note: these images are from Olive's local demo seed. They do not show personal
+        balances, private transactions, employer data, or real financial assumptions.
+      </p>
+
+      <h2 class="sub">Problem</h2>
+      <p>
+        Concentrated employer stock is not a one-time rebalance problem. RSUs vest, ESPP purchases
+        add exposure quietly, tax lots age, and future compensation changes the decision about the
+        shares already sitting in the account.
+      </p>
+      <p>
+        The recurring question is simple to ask and annoyingly hard to answer with a broker page or
+        spreadsheet: how much should I sell, when should I sell it, and what after-tax tradeoff am I
+        actually making?
+      </p>
+
+      <h2 class="sub">Operating Philosophy</h2>
+      <blockquote>
+        The portfolio is closer to a living thing you tend than a static object you optimize once.
+      </blockquote>
+      <p>
+        Olive is built around reducing decision drift. The important state should be explicit:
+        what I own, what it cost, what vested, what is still scheduled to vest, what assumptions I
+        am using, what scenario I am considering, and what I believed when I made the decision.
+      </p>
+      <p>
+        The tool should help compare careful trims over time. It should not pretend to be a broker,
+        tax preparer, or investment adviser, and it should not turn an LLM into a black-box source
+        of instructions.
+      </p>
+
+      <h2 class="sub">System</h2>
+      <div class="watch">
+        <div class="watch-row">
+          <span class="w-k mono">Truth layer</span>
+          <span class="w-v">Transactions, lots, cash, vest events, prices, theses, journals, and valuation marks.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Planning layer</span>
+          <span class="w-v">Concentration views, after-tax NAV estimates, forward exposure, targets, constraints, and scenario rows.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Inference layer</span>
+          <span class="w-v">Privacy-limited synthesis over explicit state, with raw dollars, prices, accounts, basis ratios, and shares kept local.</span>
+        </div>
+      </div>
+
+      <div class="diagram" aria-label="Olive request path">
+        <div class="dgm-row">
+          <span class="dgm-box">HTTP route</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">use case</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">D1 repos</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">domain math</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">JSX view</span>
+        </div>
+        <p class="dgm-note mono">
+          Scheduled jobs refresh provider data separately; demo screenshots are rendered from local seed rows.
+        </p>
+      </div>
+
+      <h2 class="sub">What It Proves</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Domain model</span>
+          <strong>A portfolio tool is not generic CRUD.</strong>
+          Lots, vests, cash, basis, source tags, and future exposure need explicit semantics because
+          the app can otherwise imply money or liquidity that does not exist.
+        </li>
+        <li>
+          <span class="leg-tag">Product judgment</span>
+          <strong>The wedge is employer-stock deconcentration.</strong>
+          The sharp problem is not "track my portfolio"; it is "help me move from concentrated
+          equity compensation toward the portfolio I meant to own."
+        </li>
+        <li>
+          <span class="leg-tag">AI boundary</span>
+          <strong>Models synthesize; users decide.</strong>
+          The useful AI layer is constrained by explicit user-owned state. It should surface
+          tradeoffs, citations, and questions, not recommendations or automated actions.
+        </li>
+      </ol>
+
+      <h2 class="sub">Tradeoffs</h2>
+      <p>
+        Olive favors a small, inspectable Cloudflare-native stack over a heavier backend. That keeps
+        the operational surface manageable for a personal cockpit, but it also means integration
+        breadth and enterprise-style controls are intentionally out of scope for now.
+      </p>
+      <p>
+        The current public artifact is the writeup and sanitized screenshots. The codebase remains
+        private because the app handles personal financial workflows and the interesting public
+        signal is the system shape, not the raw repository.
+      </p>
+
+      <div class="endlinks">
+        <a class="inline-link" href="/projects/">All projects</a>
+        <a class="inline-link" href="/about/">About</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

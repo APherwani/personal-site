@@ -4,8 +4,10 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 
 ## 2026-06-11
 
+- Added public project pages for Olive and SelfControl launchd automation.
+- Added Olive demo-seed screenshots from the local app and linked the public SelfControl automation repo.
 - Scrubbed previously seeded project, writing, and build-log content from the live routes.
-- Recast Olive and the home lab as upcoming works in progress without public detail pages.
+- Kept the home lab as upcoming work in progress until its notes are ready.
 - Updated route, link, metadata, accessibility, and visual tests to enforce the smaller public surface.
 - Initialized the personal site as a Git-backed Astro static project.
 - Ported the Claude Design handoff into a production Astro structure, then reduced the public content surface to Home, Projects, Writing, Build log, and About.

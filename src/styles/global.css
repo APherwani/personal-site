@@ -541,6 +541,7 @@ a.row:focus-visible .row-title {
   font-family: var(--font-mono);
   color: var(--faint);
   font-size: 18px;
+  white-space: nowrap;
   transition: transform 0.18s, color 0.18s;
 }
 
@@ -763,6 +764,40 @@ a.mini:focus-visible .mini-title {
 .figure figcaption {
   margin-top: 10px;
   text-align: center;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.project-meta span {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 3px 8px;
+  background: var(--card);
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 54px;
+}
+
+.media-grid .figure {
+  margin: 0;
+}
+
+.media-grid .caption {
+  text-align: left;
 }
 
 .about-grid {
@@ -1144,7 +1179,8 @@ hr.rule {
 @media (max-width: 860px) {
   .cards,
   .split,
-  .app-body {
+  .app-body,
+  .media-grid {
     grid-template-columns: 1fr;
   }
 

@@ -17,13 +17,17 @@ describe("site content data", () => {
     expect(unpublishedLogsWithLinks).toEqual([]);
   });
 
-  it("does not link work-in-progress projects before public pages exist", () => {
+  it("only links projects to known public routes", () => {
     const knownPaths = new Set(routeExpectations.map((route) => route.path));
 
-    expect(projects).toHaveLength(2);
-    expect(projects.map((project) => project.title)).toEqual(["Olive", "Home lab"]);
+    expect(projects).toHaveLength(3);
+    expect(projects.map((project) => project.title)).toEqual([
+      "Olive",
+      "SelfControl launchd automation",
+      "Home lab",
+    ]);
     expect(projects.every((project) => !project.href || knownPaths.has(project.href))).toBe(true);
-    expect(projects.every((project) => project.status.label === "Work in progress")).toBe(true);
+    expect(projects.filter((project) => project.status.label === "Work in progress")).toHaveLength(1);
   });
 
   it("orders feed items newest first", () => {
