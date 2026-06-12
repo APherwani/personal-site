@@ -7,6 +7,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 - Documented the Cloudflare Pages deployment settings and the `wrangler deploy` misconfiguration to avoid sending the static Astro site through the Workers setup path.
 - Renamed the first writing post route to `/writing/confessions-of-a-dubious-planner/` and added a Cloudflare Pages redirect from the old planner-and-elephant slug.
 - Added the current résumé PDF and linked it from About and the footer.
+- Replaced the unconfigured `hello@arjunpherwani.dev` contact address with `arjunpherwani@outlook.com`.
 
 ## 2026-06-11
 

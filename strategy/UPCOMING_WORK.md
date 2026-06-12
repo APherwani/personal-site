@@ -3,7 +3,6 @@
 ## Launch-Critical
 
 - Confirm the production domain and canonical URL before first deploy.
-- Replace placeholder contact email if `hello@arjunpherwani.dev` is not live.
 - Keep the résumé PDF current when public work history changes.
 - Decide what public details, if any, should ship for the home lab.
 - Run visual snapshots on the final launch branch and review diffs deliberately.

@@ -53,7 +53,7 @@ export const site = {
   description:
     "Arjun Pherwani is a systems and platform engineer working on production infrastructure, reliability, and physical-world computing.",
   url: "https://arjunpherwani.dev",
-  email: "hello@arjunpherwani.dev",
+  email: "arjunpherwani@outlook.com",
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
   resume: "/resume/arjun-pherwani-resume-2026-06-06.pdf",
