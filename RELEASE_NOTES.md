@@ -9,6 +9,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 - Added the current résumé PDF and linked it from About and the footer.
 - Replaced the unconfigured `hello@arjunpherwani.dev` contact address with `arjunpherwani@outlook.com`.
 - Added Zero Game as a public project page with its GitHub repo, project icon, route coverage, and link checks.
+- Added a restrained About-page portrait using a metadata-stripped derived asset.
 
 ## 2026-06-11
 

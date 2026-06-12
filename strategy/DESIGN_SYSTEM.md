@@ -46,6 +46,8 @@ Respect `prefers-reduced-motion`.
 
 Images should show actual artifacts or UI states. Use thin borders, restrained radii, and captions with clear synthetic-data language when appropriate. Avoid stock imagery and purely atmospheric visuals.
 
+Personal portraits should stay small, documentary, and secondary to the work. The About sidebar is the default placement; do not turn the homepage into a portrait hero unless explicitly requested.
+
 ## Voice
 
 Direct, specific, and practical. It is okay to be opinionated, but avoid hype. Project copy should describe artifacts and constraints. Writing copy should distinguish opinion from advice.

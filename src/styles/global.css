@@ -838,6 +838,18 @@ a.mini:focus-visible .mini-title {
   top: 84px;
 }
 
+.portrait-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  background: var(--paper);
+  box-shadow: 0 18px 40px -32px rgba(40, 30, 20, 0.35);
+}
+
 .clink {
   display: flex;
   justify-content: space-between;
