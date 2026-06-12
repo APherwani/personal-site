@@ -2,6 +2,11 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-06-12
+
+- Documented the Cloudflare Pages deployment settings and the `wrangler deploy` misconfiguration to avoid sending the static Astro site through the Workers setup path.
+- Renamed the first writing post route to `/writing/confessions-of-a-dubious-planner/` and added a Cloudflare Pages redirect from the old planner-and-elephant slug.
+
 ## 2026-06-11
 
 - Published the first writing post, "Confessions of a Dubious Planner," with RSS and sitemap coverage.

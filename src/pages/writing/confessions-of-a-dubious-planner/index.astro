@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { writing } from "@/data/site";
 
-const post = writing.find((item) => item.href === "/writing/planner-and-elephant/");
+const post = writing.find((item) => item.href === "/writing/confessions-of-a-dubious-planner/");
 
 if (!post) {
   throw new Error("Confessions of a Dubious Planner post metadata is missing.");

@@ -99,7 +99,7 @@ export const projects: Project[] = [
 export const writing: WritingItem[] = [
   {
     title: "Confessions of a Dubious Planner",
-    href: "/writing/planner-and-elephant/",
+    href: "/writing/confessions-of-a-dubious-planner/",
     date: "2026-06-11",
     summary:
       "A missed morning buffer turns into a better model for planning around the actual human who has to execute the plan.",
@@ -138,7 +138,7 @@ export const routeExpectations: RouteExpectation[] = [
     descriptionIncludes: "Essays from Arjun Pherwani",
   },
   {
-    path: "/writing/planner-and-elephant/",
+    path: "/writing/confessions-of-a-dubious-planner/",
     titleIncludes: "Confessions of a Dubious Planner",
     descriptionIncludes: "actual human",
   },

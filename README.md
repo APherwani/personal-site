@@ -80,6 +80,23 @@ npm run test:visual
 
 Review visual diffs intentionally. Do not update snapshots casually, especially for unrelated content or copy changes.
 
+## Cloudflare Pages Deployment
+
+Deploy this site as a Cloudflare Pages project connected to GitHub. It is a static Astro site, so it does not need the Astro Cloudflare adapter, a Worker, or `wrangler deploy`.
+
+Recommended Pages settings:
+
+- Production branch: `main`
+- Root directory: `/`
+- Build command: `pnpm run build`
+- Build output directory: `dist`
+- Deploy command: leave blank
+- Environment variables: `PNPM_VERSION=11.1.3`; optionally pin `NODE_VERSION=22.16.0`
+
+Cloudflare Pages installs dependencies before running the build command. If dependency installation is intentionally disabled with `SKIP_DEPENDENCY_INSTALL=1`, then use `pnpm install --frozen-lockfile && pnpm run build` as the build command instead.
+
+If a deploy log says `Executing user deploy command: npx wrangler deploy`, the project is configured for the wrong path. Remove the deploy command or recreate the deployment as a Pages Git integration. For a one-off direct upload outside the Git-connected flow, build locally and run `pnpm dlx wrangler pages deploy dist --project-name personal-site`.
+
 ## Project Structure
 
 ```text

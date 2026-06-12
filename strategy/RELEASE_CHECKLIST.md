@@ -18,6 +18,11 @@
 ## Deploy
 
 - Env vars and secrets reviewed.
+- Cloudflare project is Pages, not Workers.
+- Cloudflare build command is `pnpm run build` unless dependency installation is intentionally disabled.
+- Cloudflare build output directory is `dist`.
+- Cloudflare deploy command is blank for the Git-connected Pages flow.
+- `npx wrangler deploy` is not configured for this static site.
 - Domain and DNS configured.
 - Canonical URLs match production.
 - `sitemap-index.xml`, generated sitemap entries, `robots.txt`, and `rss.xml` are reachable.
