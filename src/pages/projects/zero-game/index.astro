@@ -1,0 +1,124 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const sourceHref = "https://github.com/APherwani/zero-game";
+---
+
+<BaseLayout
+  title="Zero Game - Arjun Pherwani"
+  description="Zero Game is a real-time multiplayer trick-taking card game built with Next.js, Cloudflare Workers, Durable Objects, TypeScript, and WebSockets."
+  type="article"
+  publishedTime={`${site.lastUpdated}T12:00:00.000Z`}
+  tags={["Next.js", "Cloudflare Workers", "Durable Objects", "WebSockets", "TypeScript"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Project / public game repo</p>
+      <h1 class="article-title">Zero Game</h1>
+      <p class="lead">
+        A real-time multiplayer card game for 3-7 players: predict how many tricks
+        you will win, score only when the bid is right, and keep a shared room moving
+        over WebSockets.
+      </p>
+      <div class="project-meta">
+        <span>Next.js</span>
+        <span>Cloudflare Workers</span>
+        <span>Durable Objects</span>
+        <span>WebSockets</span>
+        <span>public repo</span>
+      </div>
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">Source repo</a>
+      </div>
+    </header>
+
+    <section class="prose-wrap zero-mark" aria-label="Zero Game project mark">
+      <img
+        src="/projects/zero-game/zero-game-icon.png"
+        alt="Zero Game app icon with a black spade on a green radial background."
+        loading="lazy"
+      />
+      <p class="caption">
+        Project icon from the public repo. The interesting artifact is the room model behind it:
+        a small game whose rules need one shared source of truth.
+      </p>
+    </section>
+
+    <section class="prose-wrap prose log">
+      <h2 class="sub">Game Shape</h2>
+      <p>
+        Zero Game is a trick-taking game built around prediction. Each round, players bid how many
+        tricks they expect to win. A correct bid scores <code>10 + bid</code>; an incorrect bid
+        scores nothing.
+      </p>
+      <p>
+        Rounds shrink as the game progresses. With five players, the deal goes from five cards to
+        four, then three, two, and one. Trump comes from the top card of the remaining deck, and the
+        dealer bids last under the hook rule: they cannot make the total bids equal the number of
+        tricks available.
+      </p>
+
+      <h2 class="sub">System</h2>
+      <div class="diagram" aria-label="Zero Game realtime path">
+        <div class="dgm-row">
+          <span class="dgm-box">Browser clients</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">Next.js UI</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">Worker route</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">GameRoom Durable Object</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">native WebSockets</span>
+        </div>
+        <p class="dgm-note mono">
+          OpenNext builds the Next.js app for Cloudflare; a custom entry script connects assets,
+          routes, and the Durable Object room boundary.
+        </p>
+      </div>
+      <p>
+        The repo keeps the rule logic, WebSocket protocol, room state, and React UI separate enough
+        that the game can stay understandable. The important boundary is the room: every player sees
+        the same bids, cards, tricks, scores, and turn state because that state is owned in one
+        place.
+      </p>
+
+      <h2 class="sub">What It Proves</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Realtime state</span>
+          <strong>Multiplayer games punish ambiguous ownership.</strong>
+          The room needs to be the authority for bids, legal plays, trick winners, and scoring.
+          Optimistic UI can help the interface feel fast, but the rules cannot live only in the
+          client.
+        </li>
+        <li>
+          <span class="leg-tag">Rule modeling</span>
+          <strong>Small card games still have real state machines.</strong>
+          Follow-suit enforcement, trump resolution, dealer rotation, shrinking hands, and the hook
+          rule all create edge cases that are easier to reason about when they are explicit.
+        </li>
+        <li>
+          <span class="leg-tag">Deployment shape</span>
+          <strong>Cloudflare's primitives fit room-based realtime apps.</strong>
+          Workers handle the edge entry point, Durable Objects give each room a natural home, and
+          WebSockets keep the table synchronized without adding a separate server fleet.
+        </li>
+      </ol>
+
+      <h2 class="sub">Tradeoffs</h2>
+      <p>
+        This is a public game repo, not a polished product claim. Multiplayer code earns trust
+        slowly: reconnection behavior, strange bidding sequences, latency, and browser edge cases
+        matter. The current artifact is useful because it shows the system shape and the game rules
+        in code.
+      </p>
+
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">GitHub repo</a>
+        <a class="inline-link" href="/projects/">All projects</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

@@ -88,6 +88,15 @@ export const projects: Project[] = [
       "A small public shell automation that installed a weekday SelfControl schedule, then ran into macOS's intentional authorization boundary.",
   },
   {
+    title: "Zero Game",
+    href: "/projects/zero-game/",
+    date: "2026.06",
+    status: { label: "Public repo", tone: "active" },
+    tags: ["nextjs", "durable-objects", "websockets"],
+    summary:
+      "A real-time multiplayer trick-taking card game using Next.js, Cloudflare Workers, Durable Objects, and native WebSockets.",
+  },
+  {
     title: "Home lab",
     date: "upcoming",
     status: { label: "Work in progress", tone: "building" },
@@ -132,6 +141,11 @@ export const routeExpectations: RouteExpectation[] = [
     path: "/projects/selfcontrol-launchd/",
     titleIncludes: "SelfControl",
     descriptionIncludes: "authorization boundary",
+  },
+  {
+    path: "/projects/zero-game/",
+    titleIncludes: "Zero Game",
+    descriptionIncludes: "real-time multiplayer",
   },
   {
     path: "/writing/",

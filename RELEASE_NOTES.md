@@ -8,6 +8,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 - Renamed the first writing post route to `/writing/confessions-of-a-dubious-planner/` and added a Cloudflare Pages redirect from the old planner-and-elephant slug.
 - Added the current résumé PDF and linked it from About and the footer.
 - Replaced the unconfigured `hello@arjunpherwani.dev` contact address with `arjunpherwani@outlook.com`.
+- Added Zero Game as a public project page with its GitHub repo, project icon, route coverage, and link checks.
 
 ## 2026-06-11
 
