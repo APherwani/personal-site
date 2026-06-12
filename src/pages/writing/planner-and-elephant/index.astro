@@ -1,0 +1,180 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { writing } from "@/data/site";
+
+const post = writing.find((item) => item.href === "/writing/planner-and-elephant/");
+
+if (!post) {
+  throw new Error("Confessions of a Dubious Planner post metadata is missing.");
+}
+---
+
+<BaseLayout
+  title={`${post.title} - Arjun Pherwani`}
+  description={post.summary}
+  type="article"
+  publishedTime={`${post.date}T12:00:00.000Z`}
+  tags={post.tags}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">{post.readingTime} / {post.tags.join(" / ")}</p>
+      <h1 class="article-title">{post.title}</h1>
+      <p class="lead">
+        A body composition appointment, a bad morning plan, and the useful difference between
+        blaming the doer and designing for the human who has to execute.
+      </p>
+    </header>
+
+    <section class="prose-wrap prose">
+      <h2 class="sub">Story Time</h2>
+      <p>
+        I was interested in scheduling a body comp test for myself. This particular test required
+        showing up without having eaten for at least 12 hours beforehand. So I did what I thought
+        was logical: I scheduled an appointment at 7:30 am two weeks away.
+      </p>
+      <p>
+        The idea was that I would take the test as soon as I woke up and profit. That is, I would
+        not have to worry about the rest of my day being disrupted.
+      </p>
+      <p>
+        Come appointment day, my alarm went off at 6 am, as planned, and I snoozed it. It went off
+        again at 6:10, and I snoozed it again. It went off a third time at 6:20, and I stopped it
+        and started doomscrolling. At 6:45, I realized my folly and jumped out of bed, barely making
+        it to the appointment in time. I must confess some dodgy driving may have been involved.
+      </p>
+      <p>
+        In the moment when I made it to my appointment, all I could feel was relief that fortune
+        favored me. But after the very short appointment, I went down a fun existential rabbit hole:
+        "I suck at time management." "How am I supposed to do anything when I cannot even trust
+        myself to make it to a simple appointment on time?"
+      </p>
+      <p>
+        And then I had another thought: "It is almost like I have two versions of myself, the
+        planner and the doer, and the doer is hell-bent on sabotaging the planner."
+      </p>
+      <p>
+        I realized I had this persistent feeling that I was split in two: a planner making promises,
+        and a doer actively sabotaging them. A friend pointed out this sounded exactly like Jonathan
+        Haidt's classic rider and elephant analogy. But looking at my own morning failure, I
+        realized the standard model was missing something crucial.
+      </p>
+      <blockquote>The elephant was not the problem.</blockquote>
+
+      <h2 class="sub">Two Little Guys In My Head</h2>
+      <p>
+        That last thought, the idea that there is a version of myself intent on sabotaging
+        everything I plan, was the spark that set off this journey of introspection. I am not
+        claiming to understand all of human nature, but I have found a useful way to think about
+        this: I have two little guys running around in my head.
+      </p>
+      <p>
+        The elephant is the doer. He is the part of you that actually operates. He is embodied,
+        friction-sensitive, and affected by sleep, hunger, mood, energy, and environment. He is
+        operating under constraints. In my example, he is the version of me who woke up at 6:45 and
+        drove to the appointment.
+      </p>
+      <p>
+        The rider is the planner. He is the guy who can strategize, look ahead, and set the
+        direction. He can also be a bit irresponsible, because he is not the guy who executes. He is
+        the version of me who decided that 7:30 am was the most logical time for this appointment.
+      </p>
+
+      <h2 class="sub">Dubious Planner</h2>
+      <p>
+        Thinking back to my little story, if the rider is the guy who planned things out, he
+        completely failed to account for the reality of the elephant. The rider scheduled an
+        appointment for a frictionless, perfectly disciplined robot. He did not schedule it for a
+        tired human who relies on snoozing alarms to wake up. The elephant did not fail the plan;
+        the plan, and hence the planner, failed the elephant.
+      </p>
+      <p>
+        If the elephant shows up to the gym without a workout plan and with absolutely no clue how
+        to use the equipment, whose fault is it? Is the elephant expected to derive modern exercise
+        theory just by seeing what other people are doing?
+      </p>
+      <p>
+        Or if, come lunchtime, the planner in all his brilliance has decided that today the elephant
+        is going to cook a nutritious and delicious meal, but with no recipe selected in advance, is
+        the elephant expected to earn a Michelin star? Of course not.
+      </p>
+      <p>
+        We would label all of these as planning problems. It turns out my rider is a dubious planner
+        if he does not account for the fact that the elephant who shows up is not Superman, but just
+        Regularman. Sometimes the elephant is groggy, sleepy, hungry, tired, and whatever other
+        constraints the day brings.
+      </p>
+      <p>
+        A bad rider says: "Tomorrow I will work out, eat well, publish a blog post, clean, cook,
+        study, and make ten good decisions."
+      </p>
+      <p>
+        That sounds ambitious, but it usually hides dozens of unresolved decisions. What should I
+        eat? When should I work out? What should I work on first? What counts as success? What do I
+        cut if the day goes sideways?
+      </p>
+      <p>
+        The elephant gets handed ambiguity, friction, and an impossible checklist. When it
+        inevitably stalls, the rider blames the elephant. But the rider is just a bad manager.
+      </p>
+
+      <h2 class="sub">Teamwork Makes The Dream Work</h2>
+      <p>
+        In <em>How to Train Your Dragon</em>, there is an iconic scene where Hiccup and Toothless
+        learn to work together as a team. The satisfying click on screen makes the first Dragon
+        Rider. It works because, as the music swells, Hiccup is not just yelling at Toothless to fly
+        better through sheer willpower. He is actively operating the prosthetic tailfin he built.
+      </p>
+      <p>
+        Hiccup manages the mechanics, the pedals, and the aerodynamics so Toothless can do what he
+        does best: fly. Hiccup does not demand that Toothless become a flawless, uninjured dragon.
+        He builds a system that accommodates the exact dragon he has.
+      </p>
+      <p>
+        A good rider does exactly this. He does not ask, "How do I force the elephant to be a
+        perfectly disciplined machine tomorrow?" He asks, "Given the actual Regularman elephant I
+        have, what plan would let him move with the least amount of friction?"
+      </p>
+      <p>
+        That means fewer live decisions, clearer defaults, smaller success criteria, and less
+        avoidable friction. Meal plans should be pre-decided. The first work block should be
+        obvious. The workout should be planned out. The day should not depend on the elephant
+        rederiving the laws of physics.
+      </p>
+      <p>Good planning starts from that reality, and not fantasy.</p>
+
+      <h2 class="sub">An Alternative Morning</h2>
+      <p>Roll it back all the way to when I booked my body comp test.</p>
+      <p>
+        The takeaway is not that I am fundamentally incapable of waking up early or showing up on
+        time without rushing. The experience highlighted that my plan was brittle because it relied
+        on an idealized version of myself who could execute flawlessly without any allowance for
+        error or delay.
+      </p>
+      <p>
+        This scenario is not unique to me. Many people design plans that assume perfect
+        circumstances and do not account for the ordinary variables of daily life. A more effective
+        approach is to recognize typical human limitations and plan accordingly.
+      </p>
+      <p>
+        For example, instead of scheduling the appointment at 7:30 am, a more realistic plan would
+        have set it for 8:30 am, providing a buffer for foreseeable nonsense. That is not a profound
+        insight. The rider does not need a postdoc in human nature. He just needs to be aware of
+        common human failure modes and plan smarter.
+      </p>
+      <blockquote>Stop making plans for a fantasy version of yourself. Build the tailfin.</blockquote>
+      <p>
+        But let's be honest: that puts a neat little bow on things a bit too easily. Realizing that
+        the rider is a bad manager is a useful first step, but it does not automatically fix the
+        system. If I leave it there, I am just handing you another impossible checklist. Managing the
+        rider and the elephant takes more than "planning smarter." In the next post, I will share
+        more about what works for me and how this model kept evolving.
+      </p>
+
+      <div class="endlinks">
+        <a class="inline-link" href="/writing/">All writing</a>
+        <a class="inline-link" href="/projects/">Projects</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

@@ -2,7 +2,9 @@
 import CardLink from "@/components/CardLink.astro";
 import Kicker from "@/components/Kicker.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { projects } from "@/data/site";
+import { formatDate, projects, tagsLabel, writing } from "@/data/site";
+
+const latestWriting = writing.find((item) => item.published && item.href);
 ---
 
 <BaseLayout>
@@ -38,11 +40,21 @@ import { projects } from "@/data/site";
     <div class="split">
       <div>
         <Kicker label="Writing" />
-        <div class="mini mini-static">
-          <span class="mini-date">pending</span>
-          <span class="mini-title">Essays will appear here once they are edited for public release.</span>
-          <span class="mini-tags mono">no published writing yet</span>
-        </div>
+        {
+          latestWriting ? (
+            <a class="mini" href={latestWriting.href}>
+              <span class="mini-date">{formatDate(latestWriting.date)}</span>
+              <span class="mini-title">{latestWriting.title}</span>
+              <span class="mini-tags mono">{tagsLabel(latestWriting.tags)}</span>
+            </a>
+          ) : (
+            <div class="mini mini-static">
+              <span class="mini-date">pending</span>
+              <span class="mini-title">Essays will appear here once they are edited for public release.</span>
+              <span class="mini-tags mono">no published writing yet</span>
+            </div>
+          )
+        }
       </div>
       <div>
         <Kicker label="Build log" />

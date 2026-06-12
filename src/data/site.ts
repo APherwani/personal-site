@@ -96,7 +96,18 @@ export const projects: Project[] = [
   },
 ];
 
-export const writing: WritingItem[] = [];
+export const writing: WritingItem[] = [
+  {
+    title: "Confessions of a Dubious Planner",
+    href: "/writing/planner-and-elephant/",
+    date: "2026-06-11",
+    summary:
+      "A missed morning buffer turns into a better model for planning around the actual human who has to execute the plan.",
+    published: true,
+    readingTime: "5 min",
+    tags: ["planning", "behavior", "systems"],
+  },
+];
 
 export const logEntries: LogItem[] = [];
 
@@ -124,7 +135,12 @@ export const routeExpectations: RouteExpectation[] = [
   {
     path: "/writing/",
     titleIncludes: "Writing",
-    descriptionIncludes: "Writing will live here",
+    descriptionIncludes: "Essays from Arjun Pherwani",
+  },
+  {
+    path: "/writing/planner-and-elephant/",
+    titleIncludes: "Confessions of a Dubious Planner",
+    descriptionIncludes: "actual human",
   },
   {
     path: "/log/",

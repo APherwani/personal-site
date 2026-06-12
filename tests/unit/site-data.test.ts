@@ -35,7 +35,7 @@ describe("site content data", () => {
     const sorted = [...times].sort((left, right) => right - left);
 
     expect(times).toEqual(sorted);
-    expect(publishedFeedItems).toEqual([]);
+    expect(publishedFeedItems.map((item) => item.title)).toEqual(["Confessions of a Dubious Planner"]);
   });
 
   it("has launch-critical identity metadata", () => {

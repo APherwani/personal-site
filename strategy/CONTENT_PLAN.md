@@ -6,7 +6,7 @@
 - Projects index.
 - Olive project page with demo-seed screenshots.
 - SelfControl launchd automation failure writeup.
-- Writing index.
+- Writing index and first essay: "Confessions of a Dubious Planner."
 - Build log index.
 - About page.
 

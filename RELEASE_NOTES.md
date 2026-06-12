@@ -4,6 +4,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 
 ## 2026-06-11
 
+- Published the first writing post, "Confessions of a Dubious Planner," with RSS and sitemap coverage.
 - Added public project pages for Olive and SelfControl launchd automation.
 - Added Olive demo-seed screenshots from the local app and linked the public SelfControl automation repo.
 - Scrubbed previously seeded project, writing, and build-log content from the live routes.
