@@ -10,6 +10,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 - Replaced the unconfigured `hello@arjunpherwani.dev` contact address with `arjunpherwani@outlook.com`.
 - Added Zero Game as a public project page with its GitHub repo, project icon, route coverage, and link checks.
 - Added a restrained About-page portrait using a metadata-stripped derived asset.
+- Added a persisted dark mode with system preference defaults, dark visual snapshots, and dark accessibility coverage.
 
 ## 2026-06-11
 

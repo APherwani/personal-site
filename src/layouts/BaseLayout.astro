@@ -53,10 +53,85 @@ const jsonLd =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f6f2" data-theme-color />
+    <script is:inline>
+      (() => {
+        const storageKey = "arjun-theme";
+        const themeColors = { light: "#f7f6f2", dark: "#171613" };
+        const root = document.documentElement;
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const getStoredTheme = () => {
+          try {
+            const theme = localStorage.getItem(storageKey);
+            return theme === "dark" || theme === "light" ? theme : null;
+          } catch {
+            return null;
+          }
+        };
+
+        const getSystemTheme = () => (systemDark.matches ? "dark" : "light");
+
+        const applyTheme = (theme) => {
+          root.dataset.theme = theme;
+          root.style.colorScheme = theme;
+
+          const themeColor = document.querySelector("meta[data-theme-color]");
+          if (themeColor) {
+            themeColor.setAttribute("content", themeColors[theme]);
+          }
+
+          const toggle = document.querySelector("[data-theme-toggle]");
+          if (!toggle) {
+            return;
+          }
+
+          const nextTheme = theme === "dark" ? "light" : "dark";
+          const label = `Switch to ${nextTheme} theme`;
+          toggle.setAttribute("aria-label", label);
+          toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+          toggle.setAttribute("title", label);
+
+          const labelNode = toggle.querySelector("[data-theme-toggle-label]");
+          if (labelNode) {
+            labelNode.textContent = label;
+          }
+        };
+
+        applyTheme(getStoredTheme() ?? getSystemTheme());
+
+        window.addEventListener("DOMContentLoaded", () => {
+          const toggle = document.querySelector("[data-theme-toggle]");
+          applyTheme(getStoredTheme() ?? getSystemTheme());
+
+          toggle?.addEventListener("click", () => {
+            const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+            try {
+              localStorage.setItem(storageKey, nextTheme);
+            } catch {
+              // Ignore storage failures; the current page can still switch themes.
+            }
+            applyTheme(nextTheme);
+          });
+
+          const syncSystemTheme = () => {
+            if (!getStoredTheme()) {
+              applyTheme(getSystemTheme());
+            }
+          };
+
+          if ("addEventListener" in systemDark) {
+            systemDark.addEventListener("change", syncSystemTheme);
+          } else {
+            systemDark.addListener(syncSystemTheme);
+          }
+        });
+      })();
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f7f6f2" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -84,14 +159,27 @@ const jsonLd =
           <span class="dot" aria-hidden="true"></span>
           <span>{site.author}</span>
         </a>
-        <div class="nav-links">
-          {
-            navItems.map((item) => (
-              <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
-                {item.label}
-              </a>
-            ))
-          }
+        <div class="nav-actions">
+          <div class="nav-links">
+            {
+              navItems.map((item) => (
+                <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                  {item.label}
+                </a>
+              ))
+            }
+          </div>
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+            title="Switch to dark theme"
+          >
+            <span class="theme-toggle-icon" aria-hidden="true"></span>
+            <span class="sr-only" data-theme-toggle-label>Switch to dark theme</span>
+          </button>
         </div>
       </div>
     </nav>

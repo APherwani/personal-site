@@ -24,7 +24,7 @@ export default defineConfig({
   projects: [
     {
       name: "e2e",
-      testMatch: /(routes|links|metadata)\.spec\.ts$/,
+      testMatch: /(routes|links|metadata|theme)\.spec\.ts$/,
       use: { ...devices["Desktop Chrome"] },
     },
     {

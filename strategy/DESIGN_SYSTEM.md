@@ -27,6 +27,8 @@ This is a design-stable personal site, not a theme playground. The handoff direc
 
 Use the accent sparingly for state, current navigation, underlines, and important metadata. Do not turn the site into a single-hue accent exercise.
 
+Dark mode is part of the same system, not a redesign. Preserve the warm paper-to-charcoal relationship, the olive/rust accent family, and the same component hierarchy. Any new surface color should be added as a token and checked in both themes.
+
 ## Spacing And Composition
 
 - Max wide measure: about `1080px`.
