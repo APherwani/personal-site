@@ -4,7 +4,7 @@
 
 - Confirm the production domain and canonical URL before first deploy.
 - Replace placeholder contact email if `hello@arjunpherwani.dev` is not live.
-- Decide whether a résumé PDF should ship; add the asset and link only when real.
+- Keep the résumé PDF current when public work history changes.
 - Decide what public details, if any, should ship for the home lab.
 - Run visual snapshots on the final launch branch and review diffs deliberately.
 

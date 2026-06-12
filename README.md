@@ -12,6 +12,7 @@ The production site is built with [Astro](https://astro.build/), TypeScript, and
 - Writing: published essays, starting with `Confessions of a Dubious Planner`.
 - Build log: reserved for structured notes in the shape `goal -> setup -> worked -> failed -> changed -> next`.
 - About: background, current focus, interests, and contact links.
+- Resume: current public PDF linked from About and the footer.
 - Generated endpoints: `rss.xml`, `robots.txt`, sitemap output, favicon, and social card.
 
 The current public surface includes Olive, SelfControl launchd automation, upcoming Home lab work, and the first writing post. Build-log archives are empty until real public entries are ready.

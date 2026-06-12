@@ -56,7 +56,8 @@ export const site = {
   email: "hello@arjunpherwani.dev",
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
-  lastUpdated: "2026-06-11",
+  resume: "/resume/arjun-pherwani-resume-2026-06-06.pdf",
+  lastUpdated: "2026-06-12",
 } as const;
 
 export const navItems: LinkItem[] = [
