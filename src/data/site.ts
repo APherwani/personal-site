@@ -128,7 +128,18 @@ export const writing: WritingItem[] = [
   },
 ];
 
-export const logEntries: LogItem[] = [];
+export const logEntries: LogItem[] = [
+  {
+    title: "OPNsense, Home Assistant, and One Brittle Button",
+    href: "/log/opnsense-home-assistant-routine/",
+    number: "001",
+    date: "2026-06-13",
+    summary:
+      "An old TP-Link router became an access point, a $50 fanless mini PC became an OPNsense router, and a second mini PC became a Home Assistant box for a routine automation that mostly worked.",
+    published: true,
+    tags: ["opnsense", "home-assistant", "networking"],
+  },
+];
 
 export const routeExpectations: RouteExpectation[] = [
   {
@@ -174,7 +185,12 @@ export const routeExpectations: RouteExpectation[] = [
   {
     path: "/log/",
     titleIncludes: "Build log",
-    descriptionIncludes: "Build-log notes will live here",
+    descriptionIncludes: "Hardware, networking, and home-lab notes",
+  },
+  {
+    path: "/log/opnsense-home-assistant-routine/",
+    titleIncludes: "OPNsense",
+    descriptionIncludes: "Home Assistant",
   },
   {
     path: "/about/",

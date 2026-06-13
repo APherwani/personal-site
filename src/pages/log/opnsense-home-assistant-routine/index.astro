@@ -1,0 +1,150 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+---
+
+<BaseLayout
+  title="OPNsense, Home Assistant, and One Brittle Button - Arjun Pherwani"
+  description="A build-log note about replacing an old TP-Link router with an OPNsense mini PC, then experimenting with Home Assistant routine automation."
+  type="article"
+  publishedTime="2026-06-13T12:00:00.000Z"
+  tags={["OPNsense", "Home Assistant", "networking", "automation"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Build log 001 / home network</p>
+      <h1 class="log-title">OPNsense, Home Assistant, and One Brittle Button</h1>
+      <p class="lead">
+        I needed to upgrade an old TP-Link router, bought a cheap fanless mini PC,
+        and ended up with a small home-lab path that is weirdly close to software-defined
+        networking at work.
+      </p>
+      <div class="project-meta">
+        <span>OPNsense</span>
+        <span>Home Assistant</span>
+        <span>Hue</span>
+        <span>router-level adblocking</span>
+      </div>
+    </header>
+
+    <section class="prose-wrap prose log">
+      <h2 class="sub">Goal</h2>
+      <p>
+        Replace an aging TP-Link router without spending actual network-appliance money, get
+        router-level adblocking, and start building a home setup that can eventually isolate IoT
+        devices and experiments on their own network.
+      </p>
+
+      <h2 class="sub">Setup</h2>
+      <div class="diagram" aria-label="Home network and automation setup">
+        <div class="dgm-row">
+          <span class="dgm-box">Cable modem</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">Shuttle DS68U</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">OPNsense</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">TP-Link AP mode</span>
+        </div>
+        <div class="dgm-row">
+          <span class="dgm-box">Hue button</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">Home Assistant</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">routine state</span>
+          <span class="dgm-arr">-&gt;</span>
+          <span class="dgm-box">Echo announcement</span>
+        </div>
+      </div>
+
+      <p>
+        The router box was a used Shuttle DS68U: fanless, Intel Celeron 3855U, dual Intel gigabit
+        LAN, tiny 1.3-liter body, and a very digital-signage-looking I/O panel. It cost about
+        $50 plus shipping and tax. I flashed OPNsense onto it and moved the old TP-Link into access
+        point mode.
+      </p>
+      <p>
+        The second box was a used Cryo mini PC with an i3-7100U, 4GB DDR4, 120GB NVMe, fanless
+        aluminum case, and dual RTL8111E gigabit LAN. I was not as lucky on price, but it was still
+        a useful Home Assistant box. I flashed Home Assistant onto it and connected it to my Philips
+        Hue bulbs.
+      </p>
+
+      <h2 class="sub">Worked</h2>
+      <div class="block ok">
+        <span class="block-tag">Router</span>
+        <p>
+          Flashing OPNsense was smooth. The DS68U became the router, the TP-Link became the AP, and
+          router-level adblocking worked. For a cheap eBay mini PC, that was a very satisfying
+          result.
+        </p>
+      </div>
+      <div class="block ok">
+        <span class="block-tag">Routine button</span>
+        <p>
+          Home Assistant could track a daily routine state and advance it from a Hue Smart Button.
+          A separate automation announced the current block through an Echo Dot whenever the state
+          changed.
+        </p>
+      </div>
+
+      <pre class="snippet"><code>Hue button -&gt; input_select.current_block -&gt; input_text.current_task -&gt; Echo announcement</code></pre>
+
+      <h2 class="sub">Failed</h2>
+      <div class="block bad">
+        <span class="block-tag">AP mode</span>
+        <p>
+          The OPNsense side was boring in the good way. The TP-Link AP-mode experience was the fussy
+          part and needed a couple resets before it behaved.
+        </p>
+      </div>
+      <div class="block bad">
+        <span class="block-tag">Routine model</span>
+        <p>
+          The Home Assistant routine kind of worked, but it is brittle. It encodes the day as a long
+          hand-written chain of states: Wake, Run, Breakfast, Work Block 1, Work Block 2, Lunch,
+          Work Block 3, Work Wrap, Evening, Journal, Bed.
+        </p>
+      </div>
+
+      <pre class="snippet"><code>Work Block 1 -&gt; Work Block 2 -&gt; Lunch Prep -&gt; Lunch -&gt; Work Block 3</code></pre>
+
+      <h2 class="sub">Changed</h2>
+      <p>
+        The router upgrade changed the home network from a consumer-router box into a small
+        firewall/router setup I can understand and modify. The automation experiment also clarified
+        something: automating decision-making is not the same as hardcoding a perfect day and asking
+        a button to advance it.
+      </p>
+      <p>
+        The funny part is that this puts me in the neighborhood of software-defined networking at
+        home and at work, just at wildly different scales.
+      </p>
+
+      <h2 class="sub">Next</h2>
+      <div class="block next">
+        <span class="block-tag">Network</span>
+        <p>
+          Buy a UniFi U7 Pro or U7 Lite so I can use VLAN tagging and put IoT devices and home-lab
+          projects on a separate network.
+        </p>
+      </div>
+      <div class="block next">
+        <span class="block-tag">Automation</span>
+        <p>
+          Rethink the routine automation so it is less brittle. The useful idea is environment
+          support for work decisions; the current implementation is too much of a fixed script.
+        </p>
+      </div>
+
+      <div class="endlinks">
+        <a class="inline-link" href="/log/">All build logs</a>
+        <a class="inline-link" href="/projects/">Projects</a>
+      </div>
+
+      <p class="mono faint" style="margin-top: 28px;">
+        Last updated {site.lastUpdated}.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

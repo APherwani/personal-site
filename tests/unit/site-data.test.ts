@@ -37,7 +37,10 @@ describe("site content data", () => {
     const sorted = [...times].sort((left, right) => right - left);
 
     expect(times).toEqual(sorted);
-    expect(publishedFeedItems.map((item) => item.title)).toEqual(["Confessions of a Dubious Planner"]);
+    expect(publishedFeedItems.map((item) => item.title)).toEqual([
+      "Log 001: OPNsense, Home Assistant, and One Brittle Button",
+      "Confessions of a Dubious Planner",
+    ]);
   });
 
   it("has launch-critical identity metadata", () => {

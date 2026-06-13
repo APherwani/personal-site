@@ -5,6 +5,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 ## 2026-06-13
 
 - Added Transit Treks as a project note, framed as co-creation, logistics, game design, and operations rather than code ownership.
+- Published the first build-log entry about the OPNsense mini-PC router, TP-Link AP mode, Home Assistant Hue routine automation, and future VLAN plans.
 
 ## 2026-06-12
 

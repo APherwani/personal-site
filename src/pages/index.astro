@@ -2,9 +2,10 @@
 import CardLink from "@/components/CardLink.astro";
 import Kicker from "@/components/Kicker.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { formatDate, projects, tagsLabel, writing } from "@/data/site";
+import { formatDate, logEntries, projects, tagsLabel, writing } from "@/data/site";
 
 const latestWriting = writing.find((item) => item.published && item.href);
+const latestLog = logEntries.find((item) => item.published && item.href);
 ---
 
 <BaseLayout>
@@ -58,11 +59,21 @@ const latestWriting = writing.find((item) => item.published && item.href);
       </div>
       <div>
         <Kicker label="Build log" />
-        <div class="mini mini-static">
-          <span class="mini-date">pending</span>
-          <span class="mini-title">Build notes will come back when the home lab notes are ready.</span>
-          <span class="mini-tags mono">no published logs yet</span>
-        </div>
+        {
+          latestLog ? (
+            <a class="mini" href={latestLog.href}>
+              <span class="mini-date">{formatDate(latestLog.date)}</span>
+              <span class="mini-title">{latestLog.title}</span>
+              <span class="mini-tags mono">{tagsLabel(latestLog.tags)}</span>
+            </a>
+          ) : (
+            <div class="mini mini-static">
+              <span class="mini-date">pending</span>
+              <span class="mini-title">Build notes will come back when the home lab notes are ready.</span>
+              <span class="mini-tags mono">no published logs yet</span>
+            </div>
+          )
+        }
       </div>
     </div>
   </section>

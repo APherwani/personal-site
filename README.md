@@ -8,14 +8,14 @@ The production site is built with [Astro](https://astro.build/), TypeScript, and
 
 - Home: identity, current focus, and project cards.
 - Projects: short index for public notes and upcoming work.
-- Project detail pages: Olive, SelfControl launchd automation, and Zero Game.
+- Project detail pages: Olive, SelfControl launchd automation, Zero Game, and Transit Treks.
 - Writing: published essays, starting with `Confessions of a Dubious Planner`.
-- Build log: reserved for structured notes in the shape `goal -> setup -> worked -> failed -> changed -> next`.
+- Build log: structured notes in the shape `goal -> setup -> worked -> failed -> changed -> next`.
 - About: background, current focus, interests, and contact links.
 - Resume: current public PDF linked from About and the footer.
 - Generated endpoints: `rss.xml`, `robots.txt`, sitemap output, favicon, and social card.
 
-The current public surface includes Olive, SelfControl launchd automation, Zero Game, upcoming Home lab work, and the first writing post. Build-log archives are empty until real public entries are ready.
+The current public surface includes Olive, SelfControl launchd automation, Zero Game, Transit Treks, upcoming Home lab work, the first writing post, and the first build-log entry.
 
 ## Local Development
 
