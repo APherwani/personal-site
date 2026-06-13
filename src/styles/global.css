@@ -677,6 +677,11 @@ a.row:focus-visible .row-title {
   cursor: default;
 }
 
+.cards > .card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  min-height: 220px;
+}
+
 .card:hover .card-arrow,
 .card:focus-visible .card-arrow {
   color: var(--accent);
@@ -914,6 +919,69 @@ a.mini:focus-visible .mini-title {
 .zero-mark .caption {
   margin: 0;
   max-width: 420px;
+}
+
+.trek-board {
+  width: calc(100% - 64px);
+  max-width: var(--col-prose);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  background: var(--card);
+  padding: 24px 24px 18px;
+  margin: 0 auto 44px;
+  box-shadow: 0 18px 40px -32px var(--shadow-soft);
+}
+
+.trek-line {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.trek-line::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-rust), var(--accent));
+}
+
+.trek-stop {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 13px;
+  justify-items: center;
+  text-align: center;
+}
+
+.trek-stop::before {
+  content: "";
+  width: 38px;
+  aspect-ratio: 1;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--accent-wash);
+  box-shadow: 0 0 0 1px var(--rule-strong), inset 0 0 0 9px var(--paper);
+}
+
+.trek-stop span {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--accent-rust);
+}
+
+.trek-stop strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.1;
+  color: var(--ink);
 }
 
 .project-meta {
@@ -1474,5 +1542,45 @@ hr.rule {
   .zero-mark img {
     width: 96px;
     border-radius: 20px;
+  }
+
+  .trek-board {
+    width: calc(100% - 44px);
+    padding: 20px 18px 16px;
+  }
+
+  .trek-line {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .trek-line::before {
+    left: 19px;
+    right: auto;
+    top: 18px;
+    bottom: 28px;
+    width: 3px;
+    height: auto;
+    background: linear-gradient(180deg, var(--accent-rust), var(--accent));
+  }
+
+  .trek-stop {
+    grid-template-columns: 38px 42px 1fr;
+    justify-items: start;
+    align-items: center;
+    text-align: left;
+  }
+
+  .trek-stop::before {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .trek-stop span {
+    grid-column: 2;
+  }
+
+  .trek-stop strong {
+    grid-column: 3;
   }
 }

@@ -1,0 +1,143 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const transitTrekHref = "https://transittrek.org";
+const faqHref = "https://transittrek.org/about";
+---
+
+<BaseLayout
+  title="Transit Treks - Arjun Pherwani"
+  description="Transit Treks are public-transit strategy games across Puget Sound. Arjun Pherwani co-created the series and helps organize team logistics and game operations."
+  type="article"
+  publishedTime={`${site.lastUpdated}T12:00:00.000Z`}
+  tags={["public transit", "game design", "logistics", "operations"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Project / community game</p>
+      <h1 class="article-title">Transit Treks</h1>
+      <p class="lead">
+        A recurring public-transit game series across Puget Sound: part scavenger hunt,
+        part game of skill and strategy, and part dumb luck.
+      </p>
+      <div class="project-meta">
+        <span>public transit</span>
+        <span>game design</span>
+        <span>team logistics</span>
+        <span>Puget Sound</span>
+        <span>co-created</span>
+      </div>
+      <div class="endlinks">
+        <a class="inline-link" href={transitTrekHref} target="_blank" rel="noopener">Transit Trek site</a>
+        <a class="inline-link" href={faqHref} target="_blank" rel="noopener">FAQ</a>
+      </div>
+    </header>
+
+    <section class="prose-wrap trek-board" aria-label="Simplified Transit Trek route model">
+      <div class="trek-line">
+        <div class="trek-stop">
+          <span>01</span>
+          <strong>Start</strong>
+        </div>
+        <div class="trek-stop">
+          <span>02</span>
+          <strong>Route</strong>
+        </div>
+        <div class="trek-stop">
+          <span>03</span>
+          <strong>Challenge</strong>
+        </div>
+        <div class="trek-stop">
+          <span>04</span>
+          <strong>Transfer</strong>
+        </div>
+        <div class="trek-stop">
+          <span>05</span>
+          <strong>Finish</strong>
+        </div>
+      </div>
+      <p class="caption">
+        Simplified shape, not an actual route sheet. The game is less about puzzle solving than
+        choosing transit moves under shared constraints.
+      </p>
+    </section>
+
+    <section class="prose-wrap prose log">
+      <h2 class="sub">My Role</h2>
+      <p>
+        I did not write the code for Transit Treks, but this is still a project I work on from time
+        to time. I helped create the event and help organize the human side of it: teams, signups,
+        rules, logistics, and day-of coordination.
+      </p>
+
+      <h2 class="sub">Game Shape</h2>
+      <p>
+        Transit Treks are team-based games played on foot and by public transit. The premise changes
+        from game to game, but the constant is that teams have a few hours to complete challenges
+        while making good route decisions across Seattle and the surrounding transit network.
+      </p>
+      <p>
+        The FAQ describes the game as deliberately not a puzzle hunt. The travel is the challenge:
+        teams are navigating constraints, boundaries, transfers, timing, and incomplete information
+        while keeping the whole thing light enough to remain fun.
+      </p>
+
+      <h2 class="sub">How I Help</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Co-creation</span>
+          <strong>Helping turn the idea into a repeatable format.</strong>
+          Transit Trek started after Jeffrey and I played a transit-based Trek and wanted a version
+          with more dynamic, task-oriented game mechanics.
+        </li>
+        <li>
+          <span class="leg-tag">Logistics</span>
+          <strong>Keeping the team side organized.</strong>
+          My lane is team logistics: signups, team formation, participant flow, and the practical
+          coordination that keeps a game with dozens of people moving.
+        </li>
+        <li>
+          <span class="leg-tag">Operations</span>
+          <strong>Helping with the day-of details.</strong>
+          The game needs boundaries, permitted travel modes, accessibility choices, late signups,
+          and day-of rulings that are clear enough for people to keep playing.
+        </li>
+      </ol>
+
+      <h2 class="sub">What I Like About It</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Rules</span>
+          <strong>Clear rules make the game easier to enjoy.</strong>
+          The rules are not the point of the game, but they matter because they keep the game fair
+          without needing an organizer to resolve every edge case live.
+        </li>
+        <li>
+          <span class="leg-tag">Game design</span>
+          <strong>Constraints create the fun.</strong>
+          Banning cars, bikes, ferries, and long-distance running makes the public-transit network
+          the actual playing field.
+        </li>
+        <li>
+          <span class="leg-tag">Community</span>
+          <strong>It is fun because people keep showing up.</strong>
+          Teams, registration, supplies, accessibility, timing, and feedback loops are the boring
+          parts that make the fun part possible.
+        </li>
+      </ol>
+
+      <h2 class="sub">Credit</h2>
+      <p>
+        The public FAQ credits Jeffrey Wang and me as co-creators of Transit Trek, with Jeffrey as
+        primary game author, me as team logistics coordinator, and Michael Xing as game coordinator.
+        The public website and its code are not mine.
+      </p>
+
+      <div class="endlinks">
+        <a class="inline-link" href={transitTrekHref} target="_blank" rel="noopener">Transit Trek site</a>
+        <a class="inline-link" href="/projects/">All projects</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

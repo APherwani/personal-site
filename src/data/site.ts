@@ -57,7 +57,7 @@ export const site = {
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
   resume: "/resume/arjun-pherwani-resume-2026-06-06.pdf",
-  lastUpdated: "2026-06-12",
+  lastUpdated: "2026-06-13",
 } as const;
 
 export const navItems: LinkItem[] = [
@@ -95,6 +95,15 @@ export const projects: Project[] = [
     tags: ["nextjs", "durable-objects", "websockets"],
     summary:
       "A real-time multiplayer trick-taking card game using Next.js, Cloudflare Workers, Durable Objects, and native WebSockets.",
+  },
+  {
+    title: "Transit Treks",
+    href: "/projects/transit-treks/",
+    date: "2023-now",
+    status: { label: "Co-organizer", tone: "active" },
+    tags: ["transit", "game-design", "logistics"],
+    summary:
+      "A public-transit game series across Puget Sound. I co-created it and help with teams, signups, and day-of logistics.",
   },
   {
     title: "Home lab",
@@ -146,6 +155,11 @@ export const routeExpectations: RouteExpectation[] = [
     path: "/projects/zero-game/",
     titleIncludes: "Zero Game",
     descriptionIncludes: "real-time multiplayer",
+  },
+  {
+    path: "/projects/transit-treks/",
+    titleIncludes: "Transit Treks",
+    descriptionIncludes: "public-transit strategy",
   },
   {
     path: "/writing/",

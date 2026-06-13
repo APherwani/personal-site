@@ -2,6 +2,10 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-06-13
+
+- Added Transit Treks as a project note, framed as co-creation, logistics, game design, and operations rather than code ownership.
+
 ## 2026-06-12
 
 - Documented the Cloudflare Pages deployment settings and the `wrangler deploy` misconfiguration to avoid sending the static Astro site through the Workers setup path.

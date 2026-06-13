@@ -20,11 +20,12 @@ describe("site content data", () => {
   it("only links projects to known public routes", () => {
     const knownPaths = new Set(routeExpectations.map((route) => route.path));
 
-    expect(projects).toHaveLength(4);
+    expect(projects).toHaveLength(5);
     expect(projects.map((project) => project.title)).toEqual([
       "Olive",
       "SelfControl launchd automation",
       "Zero Game",
+      "Transit Treks",
       "Home lab",
     ]);
     expect(projects.every((project) => !project.href || knownPaths.has(project.href))).toBe(true);
