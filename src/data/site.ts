@@ -57,7 +57,7 @@ export const site = {
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
   resume: "/resume/arjun-pherwani-resume-2026-06-06.pdf",
-  lastUpdated: "2026-06-13",
+  lastUpdated: "2026-06-19",
 } as const;
 
 export const navItems: LinkItem[] = [

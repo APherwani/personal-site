@@ -2,6 +2,11 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-06-19
+
+- Removed maintainer-facing instructions from public Projects and Writing pages.
+- Reworded stale launch-process copy on Home, About, and Build log into reader-facing descriptions.
+
 ## 2026-06-13
 
 - Added Transit Treks as a project note, framed as co-creation, logistics, game design, and operations rather than code ownership.
