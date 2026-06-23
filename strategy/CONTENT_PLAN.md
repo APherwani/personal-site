@@ -5,9 +5,10 @@
 - Home page with upcoming work in progress.
 - Projects index.
 - Olive project page with demo-seed screenshots.
+- Coldtrace project page with Linux process-tracing notes, source repo, and manual-run artifacts.
 - SelfControl launchd automation failure writeup.
 - Writing index and first essay: "Confessions of a Dubious Planner."
-- Build log index.
+- Build log index with OPNsense and Coldtrace entries.
 - About page.
 
 ## Upcoming Work In Progress

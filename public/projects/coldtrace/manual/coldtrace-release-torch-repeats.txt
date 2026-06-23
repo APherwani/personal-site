@@ -1,0 +1,24 @@
+command: python -c import torch
+exit_code: 0
+wall_ms: 581
+stdout_bytes: 0
+stderr_bytes: 0
+
+command: python -c import torch
+exit_code: 0
+wall_ms: 556
+stdout_bytes: 0
+stderr_bytes: 0
+
+command: python -c import torch
+exit_code: 0
+wall_ms: 591
+stdout_bytes: 0
+stderr_bytes: 0
+
+command: python -c import torch
+exit_code: 0
+wall_ms: 554
+stdout_bytes: 0
+stderr_bytes: 0
+

@@ -57,7 +57,7 @@ export const site = {
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
   resume: "/resume/arjun-pherwani-resume-2026-06-06.pdf",
-  lastUpdated: "2026-06-19",
+  lastUpdated: "2026-06-23",
 } as const;
 
 export const navItems: LinkItem[] = [
@@ -77,6 +77,15 @@ export const projects: Project[] = [
     tags: ["equity", "tax-modeling", "decision-support"],
     summary:
       "A private portfolio cockpit for employer-stock concentration, future vests, tax-lot tradeoffs, and bounded AI synthesis.",
+  },
+  {
+    title: "Coldtrace",
+    href: "/projects/coldtrace/",
+    date: "2026.06",
+    status: { label: "Experiment", tone: "research" },
+    tags: ["rust", "linux", "process-tracing"],
+    summary:
+      "A small Rust CLI for learning what Linux processes do during cold starts of ML-ish workloads like Python importing torch.",
   },
   {
     title: "SelfControl launchd automation",
@@ -107,6 +116,7 @@ export const projects: Project[] = [
   },
   {
     title: "Home lab",
+    href: "/log/opnsense-home-assistant-routine/",
     date: "upcoming",
     status: { label: "Work in progress", tone: "building" },
     tags: ["hardware", "sensors", "reliability"],
@@ -129,6 +139,16 @@ export const writing: WritingItem[] = [
 ];
 
 export const logEntries: LogItem[] = [
+  {
+    title: "Coldtrace and a Visible import torch",
+    href: "/projects/coldtrace/",
+    number: "002",
+    date: "2026-06-23",
+    summary:
+      "A Rust CLI started as a way to turn one-off Linux import-timing, strace, and proc snapshots into repeatable run artifacts.",
+    published: true,
+    tags: ["rust", "linux", "tracing"],
+  },
   {
     title: "OPNsense, Home Assistant, and One Brittle Button",
     href: "/log/opnsense-home-assistant-routine/",
@@ -158,6 +178,11 @@ export const routeExpectations: RouteExpectation[] = [
     descriptionIncludes: "equity concentration",
   },
   {
+    path: "/projects/coldtrace/",
+    titleIncludes: "Coldtrace",
+    descriptionIncludes: "Linux process",
+  },
+  {
     path: "/projects/selfcontrol-launchd/",
     titleIncludes: "SelfControl",
     descriptionIncludes: "authorization boundary",
@@ -185,7 +210,7 @@ export const routeExpectations: RouteExpectation[] = [
   {
     path: "/log/",
     titleIncludes: "Build log",
-    descriptionIncludes: "Hardware, networking, and home-lab notes",
+    descriptionIncludes: "tools, systems, and home-lab notes",
   },
   {
     path: "/log/opnsense-home-assistant-routine/",
@@ -195,7 +220,7 @@ export const routeExpectations: RouteExpectation[] = [
   {
     path: "/about/",
     titleIncludes: "About",
-    descriptionIncludes: "Current focus",
+    descriptionIncludes: "Azure Boost",
   },
 ];
 

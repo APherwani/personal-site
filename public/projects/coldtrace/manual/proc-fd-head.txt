@@ -1,0 +1,5 @@
+total 0
+lrwx------ 1 arjunpherwani arjunpherwani 64 Jun 15 18:01 0 -> /dev/pts/0
+lrwx------ 1 arjunpherwani arjunpherwani 64 Jun 15 18:01 1 -> /dev/pts/0
+lrwx------ 1 arjunpherwani arjunpherwani 64 Jun 15 18:01 2 -> /dev/pts/0
+

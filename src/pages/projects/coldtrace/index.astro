@@ -1,0 +1,478 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const sourceHref = "https://github.com/APherwani/coldtrace";
+const publishedDate = "2026-06-23";
+const artifactBase = "/projects/coldtrace/manual";
+const manualArtifacts = [
+  {
+    label: "Environment",
+    href: `${artifactBase}/env.txt`,
+    file: "env.txt",
+    size: "443 B",
+    summary: "VM, kernel, Python path, import path, and torch version.",
+  },
+  {
+    label: "Wall time",
+    href: `${artifactBase}/time-posix.txt`,
+    file: "time-posix.txt",
+    size: "30 B",
+    summary: "The POSIX time output for one manual import run.",
+  },
+  {
+    label: "Import timing",
+    href: `${artifactBase}/importtime.txt`,
+    file: "importtime.txt",
+    size: "84 KB",
+    summary: "Full Python importtime stderr output.",
+  },
+  {
+    label: "Syscall summary",
+    href: `${artifactBase}/strace-summary.txt`,
+    file: "strace-summary.txt",
+    size: "3.1 KB",
+    summary: "Aggregate syscall table from strace.",
+  },
+  {
+    label: "Process status",
+    href: `${artifactBase}/proc-status.txt`,
+    file: "proc-status.txt",
+    size: "1.2 KB",
+    summary: "Selected proc status snapshot while Python was sleeping.",
+  },
+  {
+    label: "Cgroup",
+    href: `${artifactBase}/proc-cgroup.txt`,
+    file: "proc-cgroup.txt",
+    size: "47 B",
+    summary: "The process cgroup line.",
+  },
+  {
+    label: "Executable",
+    href: `${artifactBase}/proc-exe.txt`,
+    file: "proc-exe.txt",
+    size: "21 B",
+    summary: "The resolved executable target.",
+  },
+  {
+    label: "File descriptors",
+    href: `${artifactBase}/proc-fd-head.txt`,
+    file: "proc-fd-head.txt",
+    size: "228 B",
+    summary: "The first entries from the process file-descriptor directory.",
+  },
+  {
+    label: "Coldtrace run",
+    href: `${artifactBase}/coldtrace-release-torch.txt`,
+    file: "coldtrace-release-torch.txt",
+    size: "91 B",
+    summary: "One release-build wrapper run around the torch import workload.",
+  },
+  {
+    label: "Coldtrace repeats",
+    href: `${artifactBase}/coldtrace-release-torch-repeats.txt`,
+    file: "coldtrace-release-torch-repeats.txt",
+    size: "364 B",
+    summary: "Four release-build wrapper runs for rough repeatability.",
+  },
+];
+---
+
+<BaseLayout
+  title="Coldtrace - Arjun Pherwani"
+  description="Coldtrace is a small Rust CLI for learning Linux process behavior by tracing cold starts of ML-ish workloads like Python importing torch."
+  type="article"
+  publishedTime={`${publishedDate}T12:00:00.000Z`}
+  tags={["Rust", "Linux", "Python", "PyTorch", "process tracing"]}
+>
+  <article>
+    <header class="prose-wrap page-header">
+      <p class="mono">Project / Linux runtime experiment</p>
+      <h1 class="article-title">Coldtrace</h1>
+      <p class="lead">
+        Notes from building a small Rust CLI around a simple question: what actually happens on
+        Linux when Python executes <code>import torch</code>?
+      </p>
+      <div class="project-meta">
+        <span>Rust CLI</span>
+        <span>Linux /proc</span>
+        <span>strace</span>
+        <span>PyTorch CPU</span>
+      </div>
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">Source repo</a>
+      </div>
+    </header>
+
+    <section class="prose-wrap prose log">
+      <h2 class="sub">The Question</h2>
+      <p>
+        Coldtrace started with a casual question I have had since university. When Python runs
+        something like this:
+      </p>
+
+      <pre class="snippet"><code>import numpy
+import torch</code></pre>
+
+      <p>
+        what actually happens? The broader question is more interesting than Python's import
+        machinery alone: what happens at the process level on Linux when a program starts, imports
+        libraries, maps shared objects, creates threads or child processes, and exits?
+      </p>
+      <p>
+        I chose <code>import torch</code> as the first workload because it feels heavy. I wanted to
+        make "heavy" more concrete. Was the time going into Python's import machinery, file opens,
+        shared-object mapping, dynamic linking, native initialization, or CUDA detection? I did not
+        know. That made it useful.
+      </p>
+
+      <h2 class="sub">Setup</h2>
+      <p>
+        I wanted real Linux behavior: <code>/proc</code>, cgroups, <code>strace</code>, systemd,
+        and the normal Linux process model. Since I am on macOS, I used a small Ubuntu VM through
+        Lima. That gave me a disposable Linux development box without turning the first pass into
+        container configuration.
+      </p>
+      <p>
+        Docker would be a reasonable thing to test later, but it was the wrong abstraction for this
+        first experiment. Containers would have introduced extra questions about namespaces,
+        cgroups, filesystem layers, security profiles, and tracing permissions. The first question
+        was simpler:
+      </p>
+
+      <blockquote>
+        What does a normal Linux process do when it runs
+        <code>python -c 'import torch'</code>?
+      </blockquote>
+
+      <p>
+        I removed the obvious NVIDIA packages and installed CPU-only PyTorch:
+      </p>
+
+      <pre class="snippet"><code>python -m pip freeze |
+  grep '^nvidia-' |
+  xargs -r python -m pip uninstall -y
+
+python -m pip install torch \
+  --index-url https://download.pytorch.org/whl/cpu</code></pre>
+
+      <div class="watch">
+        <div class="watch-row">
+          <span class="w-k mono">Kernel</span>
+          <span class="w-v">Linux 6.8.0-117-generic on <code>aarch64</code>, running inside Lima.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Python</span>
+          <span class="w-v">Python 3.12.3 in <code>/home/arjunpherwani.guest/venvs/torch/bin/python</code>.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Workload</span>
+          <span class="w-v"><code>torch 2.12.0+cpu</code>, no configured CUDA environment.</span>
+        </div>
+      </div>
+
+      <p>
+        I still noticed some CUDA-looking names in the environment afterward. I have not explained
+        those yet, so I am treating them as an open question rather than claiming CUDA
+        initialization occurred. In particular, I need to distinguish between Python modules that
+        expose CUDA-related APIs and native CUDA libraries that were actually mapped into the
+        process.
+      </p>
+
+      <h2 class="sub">Artifact Bundle</h2>
+      <p>
+        The numbers below are backed by a small raw artifact bundle from the manual run directory.
+        I included the text files directly so the post is not just a polished summary of the
+        investigation; the underlying evidence is visible too.
+      </p>
+
+      <div class="watch">
+        <div class="watch-row">
+          <span class="w-k mono">Bundle</span>
+          <span class="w-v">10 text files, 90 KB total.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Captured</span>
+          <span class="w-v">Manual Linux VM run artifacts plus early Coldtrace wrapper outputs.</span>
+        </div>
+        <div class="watch-row">
+          <span class="w-k mono">Caveat</span>
+          <span class="w-v">
+            These files preserve local VM paths and process metadata because those details are part
+            of the run context.
+          </span>
+        </div>
+      </div>
+
+      <div class="watch">
+        {
+          manualArtifacts.map((artifact) => (
+            <div class="watch-row">
+              <span class="w-k mono">{artifact.label}</span>
+              <span class="w-v">
+                <a class="inline-link" href={artifact.href}>{artifact.file}</a>
+                {" "}
+                <code>{artifact.size}</code>
+                <br />
+                {artifact.summary}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="sub">Manual Runs</h2>
+      <p>
+        Before writing much code, I started with off-the-shelf tools. First, command-level wall
+        clock time:
+      </p>
+
+      <pre class="snippet"><code>/usr/bin/time -p \
+  python -c 'import torch' \
+  2&gt; runs/manual/time-posix.txt</code></pre>
+
+      <pre class="snippet"><code>real 0.58
+user 0.60
+sys  0.06</code></pre>
+
+      <p>
+        This measured the entire command: starting Python, initializing it, importing
+        <code>torch</code>, and exiting. It was a useful outside measurement, but only one run in
+        one VM. It should not be read as "<code>import torch</code> takes half a second" in general.
+      </p>
+
+      <p>Next, I used Python's import timing tool:</p>
+
+      <pre class="snippet"><code>python -X importtime \
+  -c 'import torch' \
+  2&gt; runs/manual/importtime.txt</code></pre>
+
+      <pre class="snippet"><code>import time: self [us] | cumulative | imported package
+..
+import time:     83916 |     107560 |   torch._C
+..
+import time:      1379 |      71254 |         torch.nn.modules
+..
+import time:       316 |      77933 |       torch.nn
+import time:        68 |      78000 |     torch.nn.functional
+..
+import time:      1251 |      79418 |   torch.functional
+..
+import time:     10830 |     493611 | torch</code></pre>
+
+      <p>
+        The final line reported roughly 10.8 milliseconds of self time for the top-level
+        <code>torch</code> import and roughly 493.6 milliseconds cumulatively, including nested
+        imports. That was reasonably close to the 580 millisecond end-to-end command measurement,
+        with the expected difference that <code>/usr/bin/time</code> measured the complete Python
+        process.
+      </p>
+      <p>
+        The large cumulative values in intermediate rows need to be interpreted carefully. The tree
+        is hierarchical, so parent and child cumulative times overlap. They cannot simply be added
+        together.
+      </p>
+
+      <h2 class="sub">System Calls</h2>
+      <p>
+        Neither <code>/usr/bin/time</code> nor <code>importtime</code> showed the Linux
+        interactions underneath the import: files opened, paths searched, shared objects mapped,
+        syscall shape, thread synchronization, and kernel-facing work. That was where
+        <code>strace</code> entered the investigation.
+      </p>
+
+      <pre class="snippet"><code>strace -f -c \
+  python -c 'import torch' \
+  2&gt; runs/manual/strace-summary.txt</code></pre>
+
+      <pre class="snippet"><code>% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 71.56    0.492917       14936        33         1 futex
+ 14.22    0.097960           6     14606       586 newfstatat
+  3.98    0.027428          12      2228           read
+  1.59    0.010962           8      1295        28 openat
+  1.47    0.010110           4      2262           fstat
+  1.27    0.008762           4      2029         4 lseek
+  1.14    0.007832           9       867           mmap
+  1.01    0.006979           5      1274           close
+..
+------ ----------- ----------- --------- --------- ------------------
+100.00    0.688772          24     27716      1646 total</code></pre>
+
+      <p>
+        Two syscalls stood out: <code>futex</code> and <code>newfstatat</code>.
+      </p>
+      <p>
+        <code>futex</code> is short for fast userspace mutex. It is a Linux syscall used by
+        threading and synchronization primitives. Seeing it during a PyTorch import was not
+        shocking, but it was a useful reminder that importing a large library can involve runtime
+        initialization and synchronization, not just reading <code>.py</code> files.
+      </p>
+      <p>
+        I am being careful with the <code>futex</code> timing. A syscall summary does not
+        automatically mean that much CPU was burned doing futex work. Waiting and synchronization
+        can show up as time spent inside the syscall. This is a lead, not a conclusion.
+      </p>
+      <p>
+        <code>newfstatat</code> asks filesystem metadata questions: does this path exist, what kind
+        of file is it, what are its permissions, how large is it, and when was it modified? During
+        Python imports, a large number of these checks is plausible.
+      </p>
+
+      <div class="block next">
+        <span class="block-tag">Current theories</span>
+        <p>
+          One part of `import torch` appears to be filesystem discovery and metadata checking.
+          Another part is native/runtime initialization: mapped libraries, memory protection, and
+          synchronization once compiled extensions such as `torch._C` enter the picture.
+        </p>
+      </div>
+
+      <h2 class="sub">Keeping The Process Alive</h2>
+      <p>
+        The next problem was that <code>python -c 'import torch'</code> exits too quickly. If I
+        wanted to inspect <code>/proc/$PID</code>, the process needed to stay alive long enough to
+        observe it.
+      </p>
+
+      <pre class="snippet"><code>python -c 'import torch, time; time.sleep(1200)'</code></pre>
+
+      <p>
+        Once I had the PID, I dumped selected `/proc` files while the process was still running.
+        <code>/proc/$PID/status</code> showed a sleeping Python process with memory fields like these:
+      </p>
+
+      <pre class="snippet"><code>VmPeak:   589332 kB
+VmSize:   589332 kB
+VmHWM:    235996 kB
+VmRSS:    235996 kB
+RssAnon:  151652 kB
+RssFile:   84344 kB
+VmData:   298668 kB
+VmLib:    203908 kB
+VmSwap:        0 kB</code></pre>
+
+      <p>
+        <code>VmSize</code> is virtual address space, not physical RAM. <code>VmRSS</code> is
+        resident memory. <code>RssAnon</code> is resident anonymous memory, and
+        <code>RssFile</code> is resident file-backed memory such as mapped shared libraries and
+        files.
+      </p>
+      <p>
+        In this run, RSS was about 236 MB: roughly 152 MB anonymous and 84 MB file-backed. I would
+        not say all 84 MB was "the torch library." That would be too strong. But it does suggest
+        that a meaningful amount of resident memory came from file-backed mappings.
+      </p>
+
+      <h2 class="sub">Why Build It?</h2>
+      <p>
+        By this point I had a set of useful manual commands, but they were awkward to repeat. One
+        command measured wall-clock time, another captured Python import timing, another summarized
+        syscalls, and another set read `/proc/$PID` while the process was alive.
+      </p>
+      <p>
+        Coldtrace started to make sense as a small tool: capture the raw information I was already
+        collecting manually, but make it repeatable.
+      </p>
+
+      <pre class="snippet"><code>coldtrace run -- python -c 'import torch'</code></pre>
+
+      <p>
+        The public repo's current <code>0.0.6</code> shape is intentionally boring: parse the child
+        command, create a run directory under <code>runs/</code>, start the child, redirect stdout
+        and stderr, measure wall-clock time from the parent, wait for exit, then write facts into
+        <code>record.json</code>.
+      </p>
+
+      <pre class="snippet"><code>runs/
+  20260622T022115.254Z-torch-import/
+    record.json
+    stdout.log
+    stderr.log</code></pre>
+
+      <p>
+        Some <code>record.json</code> fields are intentionally <code>null</code> right now. They
+        mark where later runtime layers will land: <code>/proc</code> snapshots, import timing,
+        syscall summaries, mapped files, and richer process state. The point is to keep the
+        underlying artifacts visible instead of immediately collapsing everything into one polished
+        number.
+      </p>
+
+      <div class="block next">
+        <span class="block-tag">Manual repeat output</span>
+        <p>
+          The copied repeat artifact has four early release-build wrapper runs at 581 ms, 556 ms,
+          591 ms, and 554 ms. That is still not a benchmark, but it is enough to show why the tool
+          needs repeated runs and raw records instead of a single timing number.
+        </p>
+      </div>
+
+      <h2 class="sub">Future Plans</h2>
+      <ol class="legs">
+        <li>
+          <span class="leg-tag">Live process state</span>
+          <strong>Snapshot `/proc` before the process exits.</strong>
+          The key race is that <code>/proc/$PID</code> exists only while the child is alive.
+          Short-lived workloads need coordination if the parent is going to capture
+          <code>status</code>, <code>cgroup</code>, <code>maps</code>, and <code>fd</code>
+          reliably.
+        </li>
+        <li>
+          <span class="leg-tag">Repeatability</span>
+          <strong>Run the same command multiple times.</strong>
+          Compare variance, separate cold-ish runs from warm runs, and add basic statistics such as
+          min, max, mean, median, and eventually percentiles.
+        </li>
+        <li>
+          <span class="leg-tag">Artifact stitching</span>
+          <strong>Keep Python, syscall, and process views side by side.</strong>
+          The useful question is not only whether a run got slower. It is whether it opened more
+          files, mapped different libraries, spent more time in userspace, changed syscall shape, or
+          shifted resident memory.
+        </li>
+      </ol>
+
+      <h2 class="sub">Limitations</h2>
+      <p>
+        This is an early investigation, not a benchmark suite. The measurements came from a small
+        Ubuntu VM running through Lima on macOS, on <code>aarch64</code>, using CPU-only PyTorch.
+        The timing results are from a small number of manual runs, not a statistically meaningful
+        benchmark.
+      </p>
+      <p>
+        Page cache state, VM scheduling, filesystem behavior, and previous runs can all affect
+        timings. <code>strace</code> also changes the timing of the traced program, so I am using it
+        to understand syscall shape, not as the final source of performance truth.
+      </p>
+      <p>
+        I am not claiming to have optimized PyTorch, found a novel bottleneck, or built a production
+        profiler. The result so far is more modest and more useful:
+      </p>
+
+      <p>
+        <code>import torch</code> is not one operation. It is visible through several boundaries:
+        Python's import graph, Linux syscalls, mapped files, live process state, and eventually
+        repeatable run records.
+      </p>
+
+      <h2 class="sub">AI Assistance</h2>
+      <p>
+        I used AI coding tools while building Coldtrace, including for implementation suggestions,
+        debugging, code review, and explaining unfamiliar APIs. I also used AI assistance to
+        organize and edit this post.
+      </p>
+      <p>
+        I reviewed and modified the code I kept, ran the experiments myself, inspected the resulting
+        artifacts, and am responsible for the measurements, interpretations, and any mistakes in the
+        project or this post.
+      </p>
+
+      <div class="endlinks">
+        <a class="inline-link" href={sourceHref} target="_blank" rel="noopener">GitHub repo</a>
+        <a class="inline-link" href={`${artifactBase}/importtime.txt`}>Full import timing</a>
+        <a class="inline-link" href={`${artifactBase}/strace-summary.txt`}>Strace summary</a>
+        <a class="inline-link" href="/projects/">All projects</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

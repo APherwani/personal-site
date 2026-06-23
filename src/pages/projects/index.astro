@@ -4,7 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { projects } from "@/data/site";
 ---
 
-<BaseLayout title="Projects - Arjun Pherwani" description="Project notes from Arjun Pherwani: Olive, Zero Game, Transit Treks, SelfControl launchd automation, and upcoming home lab work.">
+<BaseLayout title="Projects - Arjun Pherwani" description="Project notes from Arjun Pherwani: Olive, Coldtrace, Zero Game, Transit Treks, SelfControl launchd automation, and upcoming home lab work.">
   <section class="wrap" style="padding-top: 76px;">
     <header class="page-header">
       <h1 class="page-title">Projects</h1>
@@ -22,7 +22,6 @@ import { projects } from "@/data/site";
             date={project.date}
             title={project.title}
             summary={project.summary}
-            status={project.status}
           />
         ))
       }

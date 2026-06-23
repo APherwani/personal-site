@@ -1,0 +1,6 @@
+command: python -c import torch
+exit_code: 0
+wall_ms: 872
+stdout_bytes: 0
+stderr_bytes: 0
+

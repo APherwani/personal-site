@@ -8,7 +8,7 @@ interface Props {
   title: string;
   href?: string;
   description: string;
-  status: Status;
+  status?: Status;
   tags: string[];
 }
 
@@ -19,7 +19,7 @@ const Tag = href ? "a" : "div";
 <Tag class:list={["card", { "card-static": !href }]} href={href}>
   <div class="card-top">
     <span class="card-idx">{index}</span>
-    <StatusBadge status={status} />
+    {status && <StatusBadge status={status} />}
   </div>
   <h3 class="card-title">{title}</h3>
   <p class="card-desc">{description}</p>

@@ -2,6 +2,14 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-06-23
+
+- Added Coldtrace as a public project page with Linux `import torch` tracing notes and a GitHub repo link.
+- Added the Coldtrace manual-run artifact bundle as static text files linked from the project page.
+- Added Coldtrace as build-log entry 002 linking to the existing project writeup.
+- Replaced the About page bio with simpler, more personal copy.
+- Updated site last-updated metadata and project route expectations for the new page.
+
 ## 2026-06-19
 
 - Removed maintainer-facing instructions from public Projects and Writing pages.

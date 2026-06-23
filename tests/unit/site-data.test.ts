@@ -20,9 +20,10 @@ describe("site content data", () => {
   it("only links projects to known public routes", () => {
     const knownPaths = new Set(routeExpectations.map((route) => route.path));
 
-    expect(projects).toHaveLength(5);
+    expect(projects).toHaveLength(6);
     expect(projects.map((project) => project.title)).toEqual([
       "Olive",
+      "Coldtrace",
       "SelfControl launchd automation",
       "Zero Game",
       "Transit Treks",
@@ -30,6 +31,9 @@ describe("site content data", () => {
     ]);
     expect(projects.every((project) => !project.href || knownPaths.has(project.href))).toBe(true);
     expect(projects.filter((project) => project.status.label === "Work in progress")).toHaveLength(1);
+    expect(projects.find((project) => project.title === "Home lab")?.href).toBe(
+      "/log/opnsense-home-assistant-routine/",
+    );
   });
 
   it("orders feed items newest first", () => {
@@ -38,6 +42,7 @@ describe("site content data", () => {
 
     expect(times).toEqual(sorted);
     expect(publishedFeedItems.map((item) => item.title)).toEqual([
+      "Log 002: Coldtrace and a Visible import torch",
       "Log 001: OPNsense, Home Assistant, and One Brittle Button",
       "Confessions of a Dubious Planner",
     ]);
