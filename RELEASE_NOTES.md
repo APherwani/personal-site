@@ -6,6 +6,10 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 
 - Added the Coldtrace writeup to the Writing section while keeping its existing project URL canonical.
 - Deduplicated Coldtrace in the RSS feed so its Writing and Build log listings produce one feed item.
+- Published the second Coldtrace post about `wait4`, `rusage`, and first-run system state.
+- Added the three experiment summaries, representative run records, and Missing-Torch stderr as public evidence artifacts.
+- Made the Home Assistant build-log code sample keyboard-scrollable.
+- Removed the introductory copy above the Writing index.
 
 ## 2026-06-25
 

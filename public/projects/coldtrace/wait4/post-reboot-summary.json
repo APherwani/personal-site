@@ -1,0 +1,179 @@
+{
+  "schema_version": "coldtrace.harness.v0",
+  "batch_id": "20260727T221924.091Z-torch-import-harness",
+  "created_at": "2026-07-27T22:19:24.091551+00:00",
+  "run_count": 5,
+  "coldtrace_binary": "target/release/coldtrace",
+  "workload": [
+    "/home/arjunpherwani.guest/venvs/torch/bin/python3",
+    "-c",
+    "import torch"
+  ],
+  "host": {
+    "system": "Linux",
+    "kernel_release": "6.8.0-136-generic",
+    "machine": "aarch64",
+    "python_version": "3.12.3",
+    "python_executable": "/home/arjunpherwani.guest/venvs/torch/bin/python3",
+    "boot_id": "1cfa4361-d4d6-4098-9fd5-2bcc4e191526",
+    "uptime_seconds_at_start": 95.19
+  },
+  "runs": [
+    {
+      "ordinal": 1,
+      "run_id": "20260727T221920.893Z-torch-import",
+      "record": "runs/20260727T221920.893Z-torch-import/record.json",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "metrics": {
+        "wall_ms": 938,
+        "user_cpu_ms": 640.416,
+        "system_cpu_ms": 124.67,
+        "total_cpu_ms": 765.086,
+        "minor_faults": 40847,
+        "major_faults": 668,
+        "voluntary_context_switches": 2107,
+        "involuntary_context_switches": 28,
+        "max_rss_kb": 234652
+      }
+    },
+    {
+      "ordinal": 2,
+      "run_id": "20260727T221921.835Z-torch-import",
+      "record": "runs/20260727T221921.835Z-torch-import/record.json",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "metrics": {
+        "wall_ms": 560,
+        "user_cpu_ms": 602.473,
+        "system_cpu_ms": 40.936,
+        "total_cpu_ms": 643.409,
+        "minor_faults": 41058,
+        "major_faults": 0,
+        "voluntary_context_switches": 32,
+        "involuntary_context_switches": 62,
+        "max_rss_kb": 235348
+      }
+    },
+    {
+      "ordinal": 3,
+      "run_id": "20260727T221922.398Z-torch-import",
+      "record": "runs/20260727T221922.398Z-torch-import/record.json",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "metrics": {
+        "wall_ms": 544,
+        "user_cpu_ms": 595.702,
+        "system_cpu_ms": 30.911,
+        "total_cpu_ms": 626.613,
+        "minor_faults": 41059,
+        "major_faults": 0,
+        "voluntary_context_switches": 32,
+        "involuntary_context_switches": 47,
+        "max_rss_kb": 235428
+      }
+    },
+    {
+      "ordinal": 4,
+      "run_id": "20260727T221922.944Z-torch-import",
+      "record": "runs/20260727T221922.944Z-torch-import/record.json",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "metrics": {
+        "wall_ms": 573,
+        "user_cpu_ms": 610.613,
+        "system_cpu_ms": 48.008,
+        "total_cpu_ms": 658.6210000000001,
+        "minor_faults": 41058,
+        "major_faults": 0,
+        "voluntary_context_switches": 34,
+        "involuntary_context_switches": 65,
+        "max_rss_kb": 235348
+      }
+    },
+    {
+      "ordinal": 5,
+      "run_id": "20260727T221923.520Z-torch-import",
+      "record": "runs/20260727T221923.520Z-torch-import/record.json",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "metrics": {
+        "wall_ms": 569,
+        "user_cpu_ms": 625.481,
+        "system_cpu_ms": 28.955,
+        "total_cpu_ms": 654.436,
+        "minor_faults": 41087,
+        "major_faults": 0,
+        "voluntary_context_switches": 32,
+        "involuntary_context_switches": 64,
+        "max_rss_kb": 235536
+      }
+    }
+  ],
+  "summary": {
+    "wall_ms": {
+      "min": 544,
+      "max": 938,
+      "mean": 636.8,
+      "median": 569
+    },
+    "user_cpu_ms": {
+      "min": 595.702,
+      "max": 640.416,
+      "mean": 614.937,
+      "median": 610.613
+    },
+    "system_cpu_ms": {
+      "min": 28.955,
+      "max": 124.67,
+      "mean": 54.696000000000005,
+      "median": 40.936
+    },
+    "total_cpu_ms": {
+      "min": 626.613,
+      "max": 765.086,
+      "mean": 669.633,
+      "median": 654.436
+    },
+    "minor_faults": {
+      "min": 40847,
+      "max": 41087,
+      "mean": 41021.8,
+      "median": 41058
+    },
+    "major_faults": {
+      "min": 0,
+      "max": 668,
+      "mean": 133.6,
+      "median": 0
+    },
+    "voluntary_context_switches": {
+      "min": 32,
+      "max": 2107,
+      "mean": 447.4,
+      "median": 32
+    },
+    "involuntary_context_switches": {
+      "min": 28,
+      "max": 65,
+      "mean": 53.2,
+      "median": 62
+    },
+    "max_rss_kb": {
+      "min": 234652,
+      "max": 235536,
+      "mean": 235262.4,
+      "median": 235348
+    }
+  }
+}

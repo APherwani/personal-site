@@ -9,7 +9,7 @@ The production site is built with [Astro](https://astro.build/), TypeScript, and
 - Home: identity, current focus, and project cards.
 - Projects: short index for public notes and upcoming work.
 - Project detail pages: Olive, Coldtrace, SelfControl launchd automation, Zero Game, and Transit Treks.
-- Writing: published essays, including the Coldtrace writeup and `Confessions of a Dubious Planner`.
+- Writing: published essays, including the Coldtrace series and `Confessions of a Dubious Planner`.
 - Build log: structured notes in the shape `goal -> setup -> worked -> failed -> changed -> next`.
 - About: background, current focus, interests, and contact links.
 - Resume: current public PDF linked from About and the footer.

@@ -1,0 +1,61 @@
+{
+  "schema_version": "coldtrace.run.v0",
+  "run_id": "20260727T221920.893Z-torch-import",
+  "name": "torch-import",
+  "launcher": {
+    "mode": "direct",
+    "unit_name": null
+  },
+  "command": {
+    "argv": [
+      "/home/arjunpherwani.guest/venvs/torch/bin/python3",
+      "-c",
+      "import torch"
+    ],
+    "cwd": "/Users/arjunpherwani/dev/coldtrace"
+  },
+  "host": {
+    "kernel": null,
+    "hostname": null,
+    "systemd_version": null,
+    "python_version": null
+  },
+  "timing": {
+    "started_unix_ms": 1785190760893,
+    "wall_ms": 938,
+    "time_to_first_stdout_ms": null,
+    "time_to_ready_ms": null
+  },
+  "exit": {
+    "code": 0,
+    "signal": null
+  },
+  "rusage": {
+    "user_cpu_ms": 640.416,
+    "system_cpu_ms": 124.67,
+    "minor_faults": 40847,
+    "major_faults": 668,
+    "voluntary_context_switches": 2107,
+    "involuntary_context_switches": 28,
+    "max_rss_kb": 234652
+  },
+  "process": {
+    "pid": 1589,
+    "cgroup": null,
+    "peak_rss_kb": null,
+    "mapped_files_count": null
+  },
+  "output": {
+    "stdout_bytes": 0,
+    "stderr_bytes": 0
+  },
+  "artifacts": {
+    "stdout": "stdout.log",
+    "stderr": "stderr.log",
+    "proc_status": null,
+    "proc_cgroup": null,
+    "proc_maps": null,
+    "importtime": null,
+    "strace_summary": null
+  }
+}

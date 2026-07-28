@@ -51,6 +51,7 @@ describe("site content data", () => {
 
     expect(times).toEqual(sorted);
     expect(publishedFeedItems.map((item) => item.title)).toEqual([
+      "A Fresh Process Is Not a Cold System: Measuring import torch with Rust and wait4",
       "What happens when you import torch on Linux?",
       "Log 001: OPNsense, Home Assistant, and One Brittle Button",
       "Confessions of a Dubious Planner",

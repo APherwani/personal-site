@@ -127,6 +127,16 @@ export const projects: Project[] = [
 
 export const writing: WritingItem[] = [
   {
+    title: "A Fresh Process Is Not a Cold System: Measuring import torch with Rust and wait4",
+    href: "/writing/a-fresh-process-is-not-a-cold-system/",
+    date: "2026-07-27",
+    summary:
+      "Coldtrace adds wait4 child-resource accounting and finds that a fresh Python process can still inherit very different Linux page-cache and I/O conditions.",
+    published: true,
+    readingTime: "9 min",
+    tags: ["rust", "linux", "process-accounting"],
+  },
+  {
     title: "What happens when you import torch on Linux?",
     href: "/projects/coldtrace/",
     date: "2026-06-23",
@@ -211,6 +221,11 @@ export const routeExpectations: RouteExpectation[] = [
     path: "/writing/",
     titleIncludes: "Writing",
     descriptionIncludes: "Essays from Arjun Pherwani",
+  },
+  {
+    path: "/writing/a-fresh-process-is-not-a-cold-system/",
+    titleIncludes: "A Fresh Process Is Not a Cold System",
+    descriptionIncludes: "child-resource accounting",
   },
   {
     path: "/writing/confessions-of-a-dubious-planner/",
