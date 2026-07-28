@@ -7,7 +7,7 @@
 - Olive project page with demo-seed screenshots.
 - Coldtrace project page with Linux process-tracing notes, source repo, and manual-run artifacts.
 - SelfControl launchd automation failure writeup.
-- Writing index and first essay: "Confessions of a Dubious Planner."
+- Writing index with the Coldtrace writeup and "Confessions of a Dubious Planner."
 - Build log index with OPNsense and Coldtrace entries.
 - About page.
 

@@ -57,7 +57,7 @@ export const site = {
   github: "https://github.com/APherwani",
   linkedin: "https://linkedin.com/in/arjun-pherwani",
   resume: "/resume/arjun-pherwani-resume-2026-06-25.pdf",
-  lastUpdated: "2026-06-25",
+  lastUpdated: "2026-07-27",
 } as const;
 
 export const navItems: LinkItem[] = [
@@ -126,6 +126,16 @@ export const projects: Project[] = [
 ];
 
 export const writing: WritingItem[] = [
+  {
+    title: "What happens when you import torch on Linux?",
+    href: "/projects/coldtrace/",
+    date: "2026-06-23",
+    summary:
+      "Tracing a PyTorch cold start through Python import timing, Linux syscalls, live process state, and the repeatable run records that became Coldtrace.",
+    published: true,
+    readingTime: "10 min",
+    tags: ["rust", "linux", "process-tracing"],
+  },
   {
     title: "Confessions of a Dubious Planner",
     href: "/writing/confessions-of-a-dubious-planner/",
@@ -243,7 +253,12 @@ export const publishedFeedItems = [
       pubDate: new Date(`${item.date}T12:00:00.000Z`),
       categories: item.tags,
     })),
-].sort((left, right) => right.pubDate.getTime() - left.pubDate.getTime());
+]
+  .sort((left, right) => right.pubDate.getTime() - left.pubDate.getTime())
+  .filter(
+    (item, index, items) =>
+      items.findIndex((candidate) => candidate.link === item.link) === index,
+  );
 
 export function formatDate(date: string): string {
   return date.replaceAll("-", ".");

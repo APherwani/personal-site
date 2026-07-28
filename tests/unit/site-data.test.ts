@@ -17,6 +17,15 @@ describe("site content data", () => {
     expect(unpublishedLogsWithLinks).toEqual([]);
   });
 
+  it("includes the Coldtrace writeup in writing", () => {
+    expect(writing.map((item) => item.title)).toContain(
+      "What happens when you import torch on Linux?",
+    );
+    expect(writing.find((item) => item.title.startsWith("What happens"))?.href).toBe(
+      "/projects/coldtrace/",
+    );
+  });
+
   it("only links projects to known public routes", () => {
     const knownPaths = new Set(routeExpectations.map((route) => route.path));
 
@@ -42,7 +51,7 @@ describe("site content data", () => {
 
     expect(times).toEqual(sorted);
     expect(publishedFeedItems.map((item) => item.title)).toEqual([
-      "Log 002: Coldtrace and a Visible import torch",
+      "What happens when you import torch on Linux?",
       "Log 001: OPNsense, Home Assistant, and One Brittle Button",
       "Confessions of a Dubious Planner",
     ]);

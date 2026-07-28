@@ -4,8 +4,10 @@ import Kicker from "@/components/Kicker.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { formatDate, logEntries, projects, tagsLabel, writing } from "@/data/site";
 
-const latestWriting = writing.find((item) => item.published && item.href);
 const latestLog = logEntries.find((item) => item.published && item.href);
+const latestWriting = writing.find(
+  (item) => item.published && item.href && item.href !== latestLog?.href,
+);
 ---
 
 <BaseLayout>
