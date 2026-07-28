@@ -2,6 +2,10 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-06-25
+
+- Updated the public résumé PDF and site resume links.
+
 ## 2026-06-23
 
 - Added Coldtrace as a public project page with Linux `import torch` tracing notes and a GitHub repo link.
