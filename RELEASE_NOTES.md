@@ -2,6 +2,10 @@
 
 Use dated sections. Include content additions, design changes, SEO/schema changes, accessibility fixes, deploy/process changes, and notable test updates.
 
+## 2026-07-28
+
+- Updated the public resume PDF and site resume links.
+
 ## 2026-07-27
 
 - Added the Coldtrace writeup to the Writing section while keeping its existing project URL canonical.
