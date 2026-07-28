@@ -31,8 +31,8 @@ describe("site content data", () => {
 
     expect(projects).toHaveLength(6);
     expect(projects.map((project) => project.title)).toEqual([
-      "Olive",
       "Coldtrace",
+      "Olive",
       "SelfControl launchd automation",
       "Zero Game",
       "Transit Treks",

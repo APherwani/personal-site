@@ -70,15 +70,6 @@ export const navItems: LinkItem[] = [
 
 export const projects: Project[] = [
   {
-    title: "Olive",
-    href: "/projects/olive/",
-    date: "active",
-    status: { label: "Dogfood", tone: "active" },
-    tags: ["equity", "tax-modeling", "decision-support"],
-    summary:
-      "A private portfolio cockpit for employer-stock concentration, future vests, tax-lot tradeoffs, and bounded AI synthesis.",
-  },
-  {
     title: "Coldtrace",
     href: "/projects/coldtrace/",
     date: "2026.06",
@@ -86,6 +77,15 @@ export const projects: Project[] = [
     tags: ["rust", "linux", "process-tracing"],
     summary:
       "A small Rust CLI for learning what Linux processes do during cold starts of ML-ish workloads like Python importing torch.",
+  },
+  {
+    title: "Olive",
+    href: "/projects/olive/",
+    date: "active",
+    status: { label: "Dogfood", tone: "active" },
+    tags: ["equity", "tax-modeling", "decision-support"],
+    summary:
+      "A private portfolio cockpit for employer-stock concentration, future vests, tax-lot tradeoffs, and bounded AI synthesis.",
   },
   {
     title: "SelfControl launchd automation",

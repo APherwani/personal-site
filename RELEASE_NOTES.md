@@ -10,6 +10,7 @@ Use dated sections. Include content additions, design changes, SEO/schema change
 - Added the three experiment summaries, representative run records, and Missing-Torch stderr as public evidence artifacts.
 - Made the Home Assistant build-log code sample keyboard-scrollable.
 - Removed the introductory copy above the Writing index.
+- Promoted Coldtrace to the first project position across Home and Projects.
 
 ## 2026-06-25
 
